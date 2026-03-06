@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X, User, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
@@ -18,13 +18,28 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<SupaUser | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").then(({ data }) => {
+          setIsAdmin(!!data && data.length > 0);
+        });
+      } else {
+        setIsAdmin(false);
+      }
     });
-    supabase.auth.getSession().then(({ data: { session } }) => setUser(session?.user ?? null));
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").then(({ data }) => {
+          setIsAdmin(!!data && data.length > 0);
+        });
+      }
+    });
     return () => subscription.unsubscribe();
   }, []);
 
@@ -46,11 +61,20 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           <CartDrawer />
           {user ? (
-            <Link to="/profile">
-              <Button variant="outline" size="sm" className="border-secondary/40 text-primary-foreground hover:bg-secondary hover:text-secondary-foreground">
-                <User className="h-4 w-4 mr-1" /> Profile
-              </Button>
-            </Link>
+            <>
+              {isAdmin && (
+                <Link to="/admin">
+                  <Button variant="outline" size="sm" className="border-secondary/40 text-primary-foreground hover:bg-secondary hover:text-secondary-foreground">
+                    <Shield className="h-4 w-4 mr-1" /> Admin
+                  </Button>
+                </Link>
+              )}
+              <Link to="/profile">
+                <Button variant="outline" size="sm" className="border-secondary/40 text-primary-foreground hover:bg-secondary hover:text-secondary-foreground">
+                  <User className="h-4 w-4 mr-1" /> Dashboard
+                </Button>
+              </Link>
+            </>
           ) : (
             <Link to="/login">
               <Button variant="outline" size="sm" className="border-secondary/40 text-primary-foreground hover:bg-secondary hover:text-secondary-foreground">
@@ -78,9 +102,16 @@ export default function Navbar() {
                 </Link>
               ))}
               {user ? (
-                <Link to="/profile" onClick={() => setOpen(false)}>
-                  <Button className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 mt-2"><User className="h-4 w-4 mr-1" /> Profile</Button>
-                </Link>
+                <>
+                  {isAdmin && (
+                    <Link to="/admin" onClick={() => setOpen(false)}>
+                      <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90 mt-2"><Shield className="h-4 w-4 mr-1" /> Admin</Button>
+                    </Link>
+                  )}
+                  <Link to="/profile" onClick={() => setOpen(false)}>
+                    <Button className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 mt-2"><User className="h-4 w-4 mr-1" /> Dashboard</Button>
+                  </Link>
+                </>
               ) : (
                 <Link to="/login" onClick={() => setOpen(false)}>
                   <Button className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 mt-2">Login</Button>
