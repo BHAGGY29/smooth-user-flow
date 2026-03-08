@@ -169,8 +169,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* ═══════════════ FEATURED ARTISTS ═══════════════ */}
-      <section ref={artistsRef} className="py-24 bg-background">
+      {/* ═══════════════ TEAM ═══════════════ */}
+      <section ref={artistsRef} className="py-24 bg-muted/20 overflow-hidden">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -182,26 +182,60 @@ export default function About() {
             <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Team ShadowArts</h2>
           </motion.div>
 
+          {/* Leadership row — founder + co-founder larger */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate={artistsVisible ? "show" : "hidden"}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-5xl mx-auto"
+            className="flex flex-col items-center gap-12"
           >
-            {teamMembers.map((a) => (
-              <motion.div key={a.name} variants={staggerItem} className="text-center group">
-                <div className="relative w-40 h-40 mx-auto mb-6">
-                  <img
-                    src={a.image}
-                    alt={a.name}
-                    style={a.objectPosition ? { objectPosition: a.objectPosition } : undefined}
-                    className="w-full h-full rounded-full object-cover border-4 border-secondary/30 group-hover:border-secondary transition-colors duration-300"
-                  />
-                </div>
-                <h3 className="font-display text-xl font-semibold text-foreground mb-1">{a.name}</h3>
-                <p className="font-body text-sm text-muted-foreground">{a.role}</p>
-              </motion.div>
-            ))}
+            {/* Top tier: 2 leaders */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl w-full">
+              {teamMembers.slice(0, 2).map((a) => (
+                <motion.div
+                  key={a.name}
+                  variants={staggerItem}
+                  className="group relative bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-500"
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={a.image}
+                      alt={a.name}
+                      style={a.objectPosition ? { objectPosition: a.objectPosition } : undefined}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <h3 className="font-display text-xl font-bold text-primary-foreground">{a.name}</h3>
+                      <p className="font-body text-sm text-secondary mt-1">{a.role}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Bottom tier: remaining 4 members */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-4xl w-full">
+              {teamMembers.slice(2).map((a) => (
+                <motion.div
+                  key={a.name}
+                  variants={staggerItem}
+                  className="group text-center"
+                >
+                  <div className="relative w-28 h-28 mx-auto mb-4">
+                    <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-secondary/60 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                    <img
+                      src={a.image}
+                      alt={a.name}
+                      style={a.objectPosition ? { objectPosition: a.objectPosition } : undefined}
+                      className="relative w-full h-full rounded-full object-cover border-3 border-secondary/30 group-hover:border-secondary transition-all duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="font-display text-base font-semibold text-foreground mb-0.5">{a.name}</h3>
+                  <p className="font-body text-xs text-muted-foreground">{a.role}</p>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
