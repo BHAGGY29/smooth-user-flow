@@ -79,11 +79,11 @@ export default function About() {
     <Layout>
       {/* ═══════════════ HERO ═══════════════ */}
       <section className="relative min-h-[70vh] flex items-center bg-primary overflow-hidden">
-        <div className="absolute inset-0 grid grid-cols-2">
-          <img src={aboutHeroBg} alt="" className="w-full h-full object-cover opacity-30" />
-          <img src={aboutHeroBg2} alt="" className="w-full h-full object-cover opacity-30" />
+        <div className="absolute inset-0">
+          <img src={aboutHeroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-60 animate-[fadeOut_8s_ease-in-out_infinite_alternate]" />
+          <img src={aboutHeroBg2} alt="" className="absolute inset-0 w-full h-full object-cover opacity-60 animate-[fadeIn_8s_ease-in-out_infinite_alternate]" />
         </div>
-        <div className="absolute inset-0 bg-primary/60" />
+        <div className="absolute inset-0 bg-primary/50" />
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 right-20 w-72 h-72 border border-primary-foreground rounded-full" />
           <div className="absolute bottom-10 left-16 w-56 h-56 border border-primary-foreground rounded-full" />
