@@ -45,9 +45,9 @@ export default function Footer() {
             <h4 className="font-display text-sm font-semibold text-primary-foreground uppercase tracking-widest mb-4">Follow Us</h4>
             <div className="flex flex-col gap-3">
               {[
-                { icon: Instagram, label: "Instagram", href: "https://tr.ee/Sv7tkMKR0u" },
-                { icon: Youtube, label: "YouTube", href: "https://tr.ee/dTTgvU55Mi" },
-                { icon: MessageCircle, label: "WhatsApp", href: "https://tr.ee/hqzGJrHP4K" },
+                { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/_shadowarts_official?igsh=MW56cjl0ZmRlZThjbw==" },
+                { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@shadowarts_official" },
+                { icon: MessageCircle, label: "WhatsApp", href: "https://chat.whatsapp.com/JxeRmOsZDOzH5aqs6sBOjC?mode=gi_t" },
               ].map((social, i) => (
                 <motion.a
                   key={social.label}
