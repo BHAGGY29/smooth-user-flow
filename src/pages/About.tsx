@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import aboutWorkshop from "@/assets/about-workshop.jpg";
+import aboutHeroBg from "@/assets/about-hero-bg.jpeg";
 import artistElena from "@/assets/artist-elena.jpg";
 import artistJames from "@/assets/artist-james.jpg";
 import artistSofia from "@/assets/artist-sofia.jpg";
