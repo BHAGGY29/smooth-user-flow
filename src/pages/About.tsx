@@ -170,7 +170,7 @@ export default function About() {
             className="text-center mb-16"
           >
             <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">The People Behind Shadow Arts</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Our Team</h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Team ShadowArts</h2>
           </motion.div>
 
           <motion.div
