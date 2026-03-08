@@ -1,18 +1,85 @@
 import Layout from "@/components/layout/Layout";
-import { motion } from "framer-motion";
-import { Heart, Sun, Award, ArrowRight, Sparkles, Palette, Users, BookOpen, Leaf, Star } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart, Sun, Award, ArrowRight, Sparkles, Palette, Users, BookOpen, Leaf, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect, useCallback } from "react";
 
 import womenImg from "@/assets/program-women-workshop.jpg";
+import womenImg2 from "@/assets/program-women-2.jpg";
+import womenImg3 from "@/assets/program-women-3.jpg";
 import summerImg from "@/assets/program-summer-camp.jpg";
+import campImg2 from "@/assets/program-camp-2.jpg";
+import campImg3 from "@/assets/program-camp-3.jpg";
 import professionalImg from "@/assets/program-professional.jpg";
+import proImg2 from "@/assets/program-pro-2.jpg";
+import proImg3 from "@/assets/program-pro-3.jpg";
+
+// --- Image Carousel Component ---
+function ImageCarousel({ images, color, badge }: { images: string[]; color: string; badge: React.ReactNode }) {
+  const [current, setCurrent] = useState(0);
+
+  const next = useCallback(() => setCurrent((c) => (c + 1) % images.length), [images.length]);
+  const prev = useCallback(() => setCurrent((c) => (c - 1 + images.length) % images.length), [images.length]);
+
+  useEffect(() => {
+    const timer = setInterval(next, 4000);
+    return () => clearInterval(timer);
+  }, [next]);
+
+  return (
+    <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={current}
+          src={images[current]}
+          alt=""
+          loading="lazy"
+          className="w-full aspect-[4/3] object-cover"
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.6, ease: "easeOut" as const }}
+        />
+      </AnimatePresence>
+      <div className={`absolute inset-0 bg-gradient-to-t ${color} opacity-40 group-hover:opacity-50 transition-opacity duration-500`} />
+
+      {/* Nav arrows */}
+      <button
+        onClick={(e) => { e.stopPropagation(); prev(); }}
+        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
+      <button
+        onClick={(e) => { e.stopPropagation(); next(); }}
+        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60"
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
+
+      {/* Dots */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${i === current ? "bg-white w-6" : "bg-white/50 hover:bg-white/70"}`}
+          />
+        ))}
+      </div>
+
+      {/* Badge */}
+      {badge}
+    </div>
+  );
+}
 
 const programs = [
   {
     title: "Mindful Creative Women Workshop",
     subtitle: "Art · Culture · Wellness",
-    image: womenImg,
+    images: [womenImg, womenImg2, womenImg3],
     color: "from-rose-900/80 to-amber-900/70",
     icon: Heart,
     accent: "bg-rose-500/20 text-rose-300",
@@ -28,7 +95,7 @@ const programs = [
   {
     title: "Bright Minds Summer Camp",
     subtitle: "For Children · Ages 6–14 · Boys & Girls",
-    image: summerImg,
+    images: [summerImg, campImg2, campImg3],
     color: "from-amber-900/80 to-orange-900/70",
     icon: Sun,
     accent: "bg-amber-500/20 text-amber-300",
@@ -44,7 +111,7 @@ const programs = [
   {
     title: "Professional Art Courses",
     subtitle: "Certification · Career Track",
-    image: professionalImg,
+    images: [professionalImg, proImg2, proImg3],
     color: "from-slate-900/80 to-stone-900/70",
     icon: Award,
     accent: "bg-emerald-500/20 text-emerald-300",
@@ -128,40 +195,30 @@ export default function Programs() {
                   isReversed ? "lg:flex-row-reverse" : ""
                 }`}
               >
-                {/* Image */}
+                {/* Image Carousel */}
                 <motion.div
                   className={`relative ${isReversed ? "lg:order-2" : ""}`}
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
-                    <motion.img
-                      src={program.image}
-                      alt={program.title}
-                      loading="lazy"
-                      className="w-full aspect-[4/3] object-cover"
-                      initial={{ scale: 1.1 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.2, ease: "easeOut" }}
-                    />
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t ${program.color} opacity-40 group-hover:opacity-50 transition-opacity duration-500`}
-                    />
-                    {/* Floating badge */}
-                    <motion.div
-                      className={`absolute top-5 left-5 ${program.accent} backdrop-blur-md rounded-full px-4 py-2 flex items-center gap-2 text-sm font-body font-semibold`}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.5, duration: 0.5 }}
-                    >
-                      <program.icon className="h-4 w-4" />
-                      {program.subtitle}
-                    </motion.div>
-                  </div>
+                  <ImageCarousel
+                    images={program.images}
+                    color={program.color}
+                    badge={
+                      <motion.div
+                        className={`absolute top-5 left-5 ${program.accent} backdrop-blur-md rounded-full px-4 py-2 flex items-center gap-2 text-sm font-body font-semibold z-10`}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5, duration: 0.5 }}
+                      >
+                        <program.icon className="h-4 w-4" />
+                        {program.subtitle}
+                      </motion.div>
+                    }
+                  />
 
-                  {/* Decorative element */}
+                  {/* Decorative elements */}
                   <motion.div
                     className="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl bg-secondary/10 -z-10"
                     initial={{ opacity: 0, scale: 0.5 }}
