@@ -34,9 +34,9 @@ export default function Footer() {
           <div>
             <h4 className="font-display text-sm font-semibold text-primary-foreground uppercase tracking-widest mb-4">Contact</h4>
             <ul className="space-y-3 font-body text-sm">
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-secondary" /> shadowarts@gmail.com</li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-secondary" /> +91 98765 43210</li>
-              <li className="flex items-start gap-2"><MapPin className="h-4 w-4 text-secondary mt-0.5" /> Mumbai, Maharashtra, India</li>
+              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-secondary" /> shadowartsteam@gmail.com</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-secondary" /> +91 97013 60746</li>
+              <li className="flex items-start gap-2"><MapPin className="h-4 w-4 text-secondary mt-0.5" /> 16-4-1402/1, Pallavi Hospital Line, Under Bridge Rd, Shiva Nagar, Warangal, Telangana 506002</li>
             </ul>
           </div>
 

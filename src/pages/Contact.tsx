@@ -87,9 +87,9 @@ export default function Contact() {
               <div>
                 <h3 className="font-display text-xl font-semibold text-foreground mb-4">Contact Info</h3>
                 <div className="space-y-4 font-body text-muted-foreground">
-                  <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-secondary" /> shadowarts@gmail.com</div>
-                  <div className="flex items-center gap-3"><Phone className="h-5 w-5 text-secondary" /> +91 98765 43210</div>
-                  <div className="flex items-start gap-3"><MapPin className="h-5 w-5 text-secondary mt-0.5" /> Mumbai, Maharashtra, India</div>
+                  <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-secondary" /> shadowartsteam@gmail.com</div>
+                  <div className="flex items-center gap-3"><Phone className="h-5 w-5 text-secondary" /> +91 97013 60746</div>
+                  <div className="flex items-start gap-3"><MapPin className="h-5 w-5 text-secondary mt-0.5" /> 16-4-1402/1, Pallavi Hospital Line, Under Bridge Rd, Shiva Nagar, Warangal, Telangana 506002</div>
                 </div>
               </div>
             </div>
