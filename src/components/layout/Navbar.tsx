@@ -11,7 +11,7 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/programs", label: "Programs" },
   { to: "/workshops", label: "Workshops" },
-  { to: "/shop", label: "Shop" },
+  { to: "/shop", label: "Handcraft Store" },
   { to: "/about", label: "About Us" },
   { to: "/contact", label: "Contact" },
 ];
