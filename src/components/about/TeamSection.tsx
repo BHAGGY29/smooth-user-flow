@@ -237,49 +237,6 @@ function MemberNode({
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           />
 
-          {/* Hover overlay */}
-          <motion.div
-            animate={{ opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.35 }}
-            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 flex flex-col items-center justify-end p-4 pb-5"
-          >
-            <motion.p
-              initial={{ y: 10 }}
-              animate={{ y: hovered ? 0 : 10, opacity: hovered ? 1 : 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="font-body text-[10px] md:text-xs text-white/90 text-center leading-relaxed"
-            >
-              {member.funFact}
-            </motion.p>
-
-            {member.socials && (
-              <motion.div
-                initial={{ y: 10 }}
-                animate={{ y: hovered ? 0 : 10, opacity: hovered ? 1 : 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className="flex items-center gap-2 mt-2.5"
-              >
-                {member.socials.instagram && (
-                  <a href={member.socials.instagram} target="_blank" rel="noopener noreferrer"
-                    className="w-7 h-7 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors">
-                    <Instagram className="w-3 h-3" />
-                  </a>
-                )}
-                {member.socials.youtube && (
-                  <a href={member.socials.youtube} target="_blank" rel="noopener noreferrer"
-                    className="w-7 h-7 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors">
-                    <Youtube className="w-3 h-3" />
-                  </a>
-                )}
-                {member.socials.whatsapp && (
-                  <a href={member.socials.whatsapp} target="_blank" rel="noopener noreferrer"
-                    className="w-7 h-7 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors">
-                    <MessageCircle className="w-3 h-3" />
-                  </a>
-                )}
-              </motion.div>
-            )}
-          </motion.div>
         </div>
       </motion.div>
 
@@ -353,9 +310,9 @@ export default function TeamSection() {
               The Creatives
             </p>
             <h2 className="font-display text-5xl md:text-7xl font-bold text-foreground leading-[0.9]">
-              Meet the
+              Team
               <br />
-              <span className="italic text-secondary">Team</span>
+              <span className="italic text-secondary">ShadowArts</span>
             </h2>
             <p className="font-body text-muted-foreground/60 text-sm mt-6 max-w-sm mx-auto">
               The passionate humans crafting every experience at Shadow Arts.
