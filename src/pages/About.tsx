@@ -182,7 +182,7 @@ export default function About() {
             variants={staggerContainer}
             initial="hidden"
             animate={artistsVisible ? "show" : "hidden"}
-            className="grid md:grid-cols-2 gap-10 max-w-2xl mx-auto"
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-5xl mx-auto"
           >
             {teamMembers.map((a) => (
               <motion.div key={a.name} variants={staggerItem} className="text-center group">
