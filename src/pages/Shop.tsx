@@ -67,7 +67,6 @@ export default function Shop() {
                   <div className="aspect-square overflow-hidden bg-muted">
                     <img src={getProductImage(p, i)} alt={p.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  </div>
                   <div className="p-5">
                     <h3 className="font-display text-lg font-semibold text-foreground mb-1">{p.name}</h3>
                     <p className="font-body text-sm text-muted-foreground mb-3 line-clamp-2">{p.description}</p>
