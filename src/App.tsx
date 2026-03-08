@@ -14,7 +14,6 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
-import SearchWorkshops from "./pages/SearchWorkshops";
 import Programs from "./pages/Programs";
 import ChatBot from "./components/ChatBot";
 
@@ -31,7 +30,6 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/workshops" element={<Workshops />} />
-          <Route path="/search-workshops" element={<SearchWorkshops />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
