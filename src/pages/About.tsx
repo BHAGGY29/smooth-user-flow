@@ -25,6 +25,13 @@ const artists = [
   { name: "Sofia Rodriguez", role: "Sculptor", image: artistSofia, social: "@sofiarodriguez" },
 ];
 
+const mouPartners = [
+  { name: "Chaitanya Bharathi Institute of Technology", image: mouCbit },
+  { name: "Pidilite", image: mouPidilite },
+  { name: "Vaagdevi College of Engineering", image: mouVaagdevi },
+  { name: "SR University", image: mouSrUniversity },
+];
+
 const values = [
   { icon: Eye, title: "Vision", desc: "To redefine boundaries of artistic expression through the convergence of light, shadow, and creativity." },
   { icon: Heart, title: "Passion", desc: "A deep love for art that drives us to curate and showcase unique perspectives from artists worldwide." },
