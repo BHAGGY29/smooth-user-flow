@@ -30,6 +30,13 @@ import campGallery4 from "@/assets/camp-gallery-4.jpg";
 import campGallery5 from "@/assets/camp-gallery-5.jpg";
 import campGallery6 from "@/assets/camp-gallery-6.jpg";
 
+import proGallery1 from "@/assets/pro-gallery-1.jpg";
+import proGallery2 from "@/assets/pro-gallery-2.jpg";
+import proGallery3 from "@/assets/pro-gallery-3.jpg";
+import proGallery4 from "@/assets/pro-gallery-4.jpg";
+import proGallery5 from "@/assets/pro-gallery-5.jpg";
+import proGallery6 from "@/assets/pro-gallery-6.jpg";
+
 // --- Image Carousel Component ---
 function ImageCarousel({ images, color, badge }: { images: string[]; color: string; badge: React.ReactNode }) {
   const [current, setCurrent] = useState(0);
