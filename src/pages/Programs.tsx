@@ -310,6 +310,19 @@ export default function Programs() {
                   </motion.div>
                 </div>
               </motion.div>
+
+              {/* Gallery */}
+              {program.galleryImages.length > 0 && (
+                <motion.div
+                  className="lg:col-span-2 mt-4"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <ProgramGallery images={program.galleryImages} title={program.title} />
+                </motion.div>
+              )}
             </div>
           </section>
         );
