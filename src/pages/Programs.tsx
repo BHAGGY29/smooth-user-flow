@@ -27,13 +27,13 @@ const programs = [
   },
   {
     title: "Bright Minds Summer Camp",
-    subtitle: "For Children · Ages 6–14",
+    subtitle: "For Children · Ages 6–14 · Boys & Girls",
     image: summerImg,
     color: "from-amber-900/80 to-orange-900/70",
     icon: Sun,
     accent: "bg-amber-500/20 text-amber-300",
     description:
-      "A vibrant summer experience where young minds explore India's incredible art traditions! From painting mythological stories in Madhubani style to creating tribal patterns in Warli, kids build confidence, creativity, and cultural pride — all while having the time of their lives.",
+      "A vibrant summer experience where young boys and girls explore India's incredible art traditions! From painting mythological stories in Madhubani style to creating tribal patterns in Warli, kids build confidence, creativity, and cultural pride — all while having the time of their lives.",
     highlights: [
       { icon: Palette, text: "Hands-on projects in Warli, Gond, Mandala & more traditional art forms" },
       { icon: Star, text: "Fun storytelling sessions connecting art to India's rich mythology" },
