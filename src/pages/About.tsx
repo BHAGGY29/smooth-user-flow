@@ -4,13 +4,10 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
-  Heart, Eye, Users, Sparkles, ArrowRight, Calendar, Clock, User,
+  Heart, Eye, Users, Sparkles, ArrowRight,
   Instagram, Twitter, Facebook, Mail,
 } from "lucide-react";
 
-import artAbstract from "@/assets/art-abstract-shadows.jpg";
-import artUrban from "@/assets/art-urban-reflections.jpg";
-import artEthereal from "@/assets/art-ethereal-forms.jpg";
 import aboutWorkshop from "@/assets/about-workshop.jpg";
 import artistElena from "@/assets/artist-elena.jpg";
 import artistJames from "@/assets/artist-james.jpg";
@@ -18,22 +15,10 @@ import artistSofia from "@/assets/artist-sofia.jpg";
 
 /* ── Data from the GitHub repo ── */
 
-const artworks = [
-  { id: 1, title: "Abstract Shadows", artist: "Elena Myers", year: 2023, image: artAbstract, category: "abstract" },
-  { id: 2, title: "Urban Reflections", artist: "James Chen", year: 2024, image: artUrban, category: "urban" },
-  { id: 3, title: "Ethereal Forms", artist: "Sofia Rodriguez", year: 2022, image: artEthereal, category: "sculpture" },
-];
-
 const artists = [
   { name: "Elena Myers", role: "Abstract & Shadow Art", image: artistElena, social: "@elenamyers" },
   { name: "James Chen", role: "Urban Photography", image: artistJames, social: "@jameschen" },
   { name: "Sofia Rodriguez", role: "Sculptor", image: artistSofia, social: "@sofiarodriguez" },
-];
-
-const workshops = [
-  { title: "Exploring Shadow Art", date: "June 12, 2025", instructor: "Dr. Emily Ward" },
-  { title: "Mastering Light and Dark", date: "July 8, 2025", instructor: "Mark Daniels" },
-  { title: "Sculpting Shadows", date: "August 20, 2025", instructor: "Sofia Rodriguez" },
 ];
 
 const values = [
@@ -73,10 +58,8 @@ const staggerItem = {
 
 export default function About() {
   const { ref: storyRef, isVisible: storyVisible } = useScrollReveal(0.2);
-  const { ref: galleryRef, isVisible: galleryVisible } = useScrollReveal(0.15);
   const { ref: artistsRef, isVisible: artistsVisible } = useScrollReveal(0.15);
   const { ref: valuesRef, isVisible: valuesVisible } = useScrollReveal(0.15);
-  const { ref: workshopsRef, isVisible: workshopsVisible } = useScrollReveal(0.15);
   const { ref: ctaRef, isVisible: ctaVisible } = useScrollReveal(0.2);
 
   return (
@@ -160,48 +143,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* ═══════════════ ART GALLERY (from repo) ═══════════════ */}
-      <section ref={galleryRef} className="py-24 bg-primary">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={galleryVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">Our Collection</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground">Art Gallery</h2>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate={galleryVisible ? "show" : "hidden"}
-            className="grid md:grid-cols-3 gap-8"
-          >
-            {artworks.map((art) => (
-              <motion.div key={art.id} variants={staggerItem} className="group cursor-pointer">
-                <div className="relative rounded-xl overflow-hidden shadow-lg">
-                  <img
-                    src={art.image}
-                    alt={art.title}
-                    className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <span className="inline-block px-3 py-1 bg-secondary/90 text-secondary-foreground text-xs font-body uppercase tracking-wider rounded-full mb-2">
-                      {art.category}
-                    </span>
-                    <h3 className="font-display text-xl font-semibold text-primary-foreground">{art.title}</h3>
-                    <p className="font-body text-sm text-primary-foreground/70">{art.artist}, {art.year}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* ═══════════════ FEATURED ARTISTS ═══════════════ */}
       <section ref={artistsRef} className="py-24 bg-background">
         <div className="container">
@@ -270,65 +211,6 @@ export default function About() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ UPCOMING WORKSHOPS (from repo) ═══════════════ */}
-      <section ref={workshopsRef} className="py-24 bg-background">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={workshopsVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">Learn With Us</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Upcoming Workshops</h2>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate={workshopsVisible ? "show" : "hidden"}
-            className="grid md:grid-cols-3 gap-8"
-          >
-            {workshops.map((w) => (
-              <motion.div
-                key={w.title}
-                variants={staggerItem}
-                className="border border-border rounded-xl p-8 bg-card hover:shadow-xl transition-shadow duration-300 group"
-              >
-                <div className="w-12 h-12 rounded-full bg-secondary/15 flex items-center justify-center mb-6 group-hover:bg-secondary/25 transition-colors">
-                  <Calendar className="h-5 w-5 text-secondary" />
-                </div>
-                <h3 className="font-display text-xl font-semibold text-card-foreground mb-4">{w.title}</h3>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-muted-foreground font-body text-sm">
-                    <Clock className="h-4 w-4 text-secondary/70" />
-                    <span>{w.date}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground font-body text-sm">
-                    <User className="h-4 w-4 text-secondary/70" />
-                    <span>{w.instructor}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={workshopsVisible ? { opacity: 1 } : {}}
-            transition={{ delay: 0.5 }}
-            className="text-center mt-12"
-          >
-            <Link to="/workshops">
-              <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body group">
-                View All Workshops
-                <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </motion.div>
         </div>
       </section>
 
