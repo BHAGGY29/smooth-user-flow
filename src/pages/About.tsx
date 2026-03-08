@@ -8,6 +8,7 @@ import {
   Instagram, MessageCircle, Mail, ExternalLink,
 } from "lucide-react";
 import { Youtube } from "lucide-react";
+import TeamSection from "@/components/about/TeamSection";
 
 import aboutWorkshop from "@/assets/about-workshop.jpg";
 import aboutHeroBg from "@/assets/about-hero-bg.jpeg";
