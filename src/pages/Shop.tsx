@@ -49,7 +49,7 @@ export default function Shop() {
         <div className="container">
           <div className="text-center mb-16">
             <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-3">Handcrafted Art</p>
-            <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground">Art Shop</h1>
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground">Crafted with Culture</h1>
           </div>
 
           {loading ? (
