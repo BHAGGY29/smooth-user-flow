@@ -105,7 +105,7 @@ export default function About() {
               <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-8">Our Story</h2>
               <div className="space-y-5">
                 <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                  Founded in 2025, Shadow Arts started as a small exhibition space but
+                  Founded in 2023, Shadow Arts started as a small exhibition space but
                   quickly grew into an online community where artists and enthusiasts
                   could connect and appreciate the beauty of shadows in art.
                 </p>
