@@ -12,6 +12,10 @@ import aboutWorkshop from "@/assets/about-workshop.jpg";
 import artistElena from "@/assets/artist-elena.jpg";
 import artistJames from "@/assets/artist-james.jpg";
 import artistSofia from "@/assets/artist-sofia.jpg";
+import mouCbit from "@/assets/mou-cbit.png";
+import mouPidilite from "@/assets/mou-pidilite.png";
+import mouVaagdevi from "@/assets/mou-vaagdevi.png";
+import mouSrUniversity from "@/assets/mou-sr-university.png";
 
 /* ── Data from the GitHub repo ── */
 
