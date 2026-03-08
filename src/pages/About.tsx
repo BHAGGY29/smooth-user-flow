@@ -11,7 +11,7 @@ import {
 import aboutWorkshop from "@/assets/about-workshop.jpg";
 import aboutHeroBg from "@/assets/about-hero-bg.jpeg";
 import aboutHeroBg2 from "@/assets/about-hero-bg-2.jpeg";
-import aboutHeroBg3 from "@/assets/hero-home-bg.jpeg";
+
 import teamArunkumar from "@/assets/team-arunkumar.png";
 import teamChandhana from "@/assets/team-chandhana.png";
 import mouCbit from "@/assets/mou-cbit.png";
@@ -79,8 +79,7 @@ export default function About() {
       {/* ═══════════════ HERO ═══════════════ */}
       <section className="relative min-h-[70vh] flex items-center bg-primary overflow-hidden">
         <div className="absolute inset-0">
-          <img src={aboutHeroBg2} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ animation: 'heroFade 8s ease-in-out infinite', opacity: 0 }} />
-          <img src={aboutHeroBg3} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ animation: 'heroFade 8s ease-in-out 4s infinite', opacity: 0 }} />
+          <img src={aboutHeroBg2} alt="" className="absolute inset-0 w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-primary/50" />
         <div className="absolute inset-0 opacity-5">
