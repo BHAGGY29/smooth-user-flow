@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import aboutWorkshop from "@/assets/about-workshop.jpg";
+import aboutHeroBg from "@/assets/about-hero-bg.jpeg";
 import artistElena from "@/assets/artist-elena.jpg";
 import artistJames from "@/assets/artist-james.jpg";
 import artistSofia from "@/assets/artist-sofia.jpg";
@@ -77,6 +78,10 @@ export default function About() {
     <Layout>
       {/* ═══════════════ HERO ═══════════════ */}
       <section className="relative min-h-[70vh] flex items-center bg-primary overflow-hidden">
+        <div className="absolute inset-0">
+          <img src={aboutHeroBg} alt="" className="w-full h-full object-cover opacity-15" />
+          <div className="absolute inset-0 bg-primary/70" />
+        </div>
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 right-20 w-72 h-72 border border-primary-foreground rounded-full" />
           <div className="absolute bottom-10 left-16 w-56 h-56 border border-primary-foreground rounded-full" />
