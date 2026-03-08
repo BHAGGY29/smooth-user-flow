@@ -52,6 +52,25 @@ export default function Shop() {
             <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground">Crafted with Culture</h1>
           </div>
 
+          {/* Coming Soon Banner */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 rounded-2xl border-2 border-dashed border-secondary/40 bg-secondary/5 p-8 md:p-12 text-center"
+          >
+            <motion.p
+              animate={{ opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="font-display text-3xl md:text-4xl font-bold text-secondary mb-3"
+            >
+              Coming Soon
+            </motion.p>
+            <p className="font-body text-muted-foreground text-sm md:text-base max-w-md mx-auto">
+              Our handcraft store is being curated with love. Stay tuned for authentic, handcrafted artwork from master artisans across India.
+            </p>
+          </motion.div>
+
           {loading ? (
             <p className="text-center font-body text-muted-foreground">Loading products...</p>
           ) : products.length === 0 ? (
