@@ -1,121 +1,247 @@
 import Layout from "@/components/layout/Layout";
 import { motion } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { Heart, Eye, Users, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Heart, Eye, Users, Sparkles, ArrowRight, Calendar, Clock, User,
+  Instagram, Twitter, Facebook, Mail,
+} from "lucide-react";
 
-const values = [
-  {
-    icon: Eye,
-    title: "Vision",
-    desc: "To redefine boundaries of artistic expression through the convergence of light, shadow, and creativity.",
-  },
-  {
-    icon: Heart,
-    title: "Passion",
-    desc: "A deep love for art that drives us to curate and showcase unique perspectives from artists worldwide.",
-  },
-  {
-    icon: Users,
-    title: "Community",
-    desc: "Building a vibrant online community where artists and enthusiasts connect and appreciate the beauty of shadows in art.",
-  },
-  {
-    icon: Sparkles,
-    title: "Innovation",
-    desc: "Pushing the limits of contemporary art by exploring new mediums, techniques, and digital experiences.",
-  },
+import artAbstract from "@/assets/art-abstract-shadows.jpg";
+import artUrban from "@/assets/art-urban-reflections.jpg";
+import artEthereal from "@/assets/art-ethereal-forms.jpg";
+import aboutWorkshop from "@/assets/about-workshop.jpg";
+import artistElena from "@/assets/artist-elena.jpg";
+import artistJames from "@/assets/artist-james.jpg";
+import artistSofia from "@/assets/artist-sofia.jpg";
+
+/* ── Data from the GitHub repo ── */
+
+const artworks = [
+  { id: 1, title: "Abstract Shadows", artist: "Elena Myers", year: 2023, image: artAbstract, category: "abstract" },
+  { id: 2, title: "Urban Reflections", artist: "James Chen", year: 2024, image: artUrban, category: "urban" },
+  { id: 3, title: "Ethereal Forms", artist: "Sofia Rodriguez", year: 2022, image: artEthereal, category: "sculpture" },
 ];
 
+const artists = [
+  { name: "Elena Myers", role: "Abstract & Shadow Art", image: artistElena, social: "@elenamyers" },
+  { name: "James Chen", role: "Urban Photography", image: artistJames, social: "@jameschen" },
+  { name: "Sofia Rodriguez", role: "Sculptor", image: artistSofia, social: "@sofiarodriguez" },
+];
+
+const workshops = [
+  { title: "Exploring Shadow Art", date: "June 12, 2025", instructor: "Dr. Emily Ward" },
+  { title: "Mastering Light and Dark", date: "July 8, 2025", instructor: "Mark Daniels" },
+  { title: "Sculpting Shadows", date: "August 20, 2025", instructor: "Sofia Rodriguez" },
+];
+
+const values = [
+  { icon: Eye, title: "Vision", desc: "To redefine boundaries of artistic expression through the convergence of light, shadow, and creativity." },
+  { icon: Heart, title: "Passion", desc: "A deep love for art that drives us to curate and showcase unique perspectives from artists worldwide." },
+  { icon: Users, title: "Community", desc: "Building a vibrant online community where artists and enthusiasts connect and appreciate the beauty of shadows in art." },
+  { icon: Sparkles, title: "Innovation", desc: "Pushing the limits of contemporary art by exploring new mediums, techniques, and digital experiences." },
+];
+
+const quickLinks = [
+  { label: "Home", to: "/" },
+  { label: "Gallery", to: "/programs" },
+  { label: "Exhibitions", to: "/workshops" },
+];
+
+const resources = [
+  { label: "For Artists", to: "/workshops" },
+  { label: "For Collectors", to: "/shop" },
+  { label: "Press Kit", to: "/contact" },
+];
+
+/* ── Animation helpers ── */
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay },
+});
+
+const staggerContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
+const staggerItem = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 export default function About() {
-  const { ref: storyRef, isVisible: storyVisible } = useScrollReveal(0.3);
-  const { ref: valuesRef, isVisible: valuesVisible } = useScrollReveal(0.2);
-  const { ref: missionRef, isVisible: missionVisible } = useScrollReveal(0.3);
+  const { ref: storyRef, isVisible: storyVisible } = useScrollReveal(0.2);
+  const { ref: galleryRef, isVisible: galleryVisible } = useScrollReveal(0.15);
+  const { ref: artistsRef, isVisible: artistsVisible } = useScrollReveal(0.15);
+  const { ref: valuesRef, isVisible: valuesVisible } = useScrollReveal(0.15);
+  const { ref: workshopsRef, isVisible: workshopsVisible } = useScrollReveal(0.15);
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollReveal(0.2);
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center bg-primary overflow-hidden">
+      {/* ═══════════════ HERO ═══════════════ */}
+      <section className="relative min-h-[70vh] flex items-center bg-primary overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 right-20 w-72 h-72 border border-primary-foreground rounded-full" />
           <div className="absolute bottom-10 left-16 w-56 h-56 border border-primary-foreground rounded-full" />
+          <div className="absolute top-1/3 left-2/3 w-40 h-40 border border-primary-foreground rounded-full" />
         </div>
-        <div className="container relative z-10">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-6"
-          >
+        <div className="container relative z-10 py-20">
+          <motion.p {...fadeUp()} className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-6">
             Who We Are
           </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="font-display text-5xl md:text-7xl font-bold text-primary-foreground leading-[1.1] mb-6"
-          >
+          <motion.h1 {...fadeUp(0.15)} className="font-display text-5xl md:text-7xl font-bold text-primary-foreground leading-[1.1] mb-6">
             About <span className="text-secondary italic">Shadow Arts</span>
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="font-body text-lg md:text-xl text-primary-foreground/70 max-w-2xl leading-relaxed"
-          >
+          <motion.p {...fadeUp(0.3)} className="font-body text-lg md:text-xl text-primary-foreground/70 max-w-2xl leading-relaxed mb-8">
             Shadow Arts explores the convergence of light, shadow, and creativity
             through various forms of artistic expression. Our mission is to provide
             a platform for artists to showcase their unique perspectives and redefine
             boundaries.
           </motion.p>
+          <motion.p {...fadeUp(0.4)} className="font-body text-sm text-primary-foreground/40 tracking-widest uppercase">
+            Exploring the interplay of light and darkness through contemporary art since 2020.
+          </motion.p>
         </div>
       </section>
 
-      {/* Our Story */}
-      <section ref={storyRef} className="py-24 bg-background">
+      {/* ═══════════════ OUR STORY + IMAGE ═══════════════ */}
+      <section ref={storyRef} className="py-24 bg-background overflow-hidden">
         <div className="container">
-          <div className="max-w-4xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={storyVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7 }}
-              className="text-center mb-12"
+              initial={{ opacity: 0, x: -40 }}
+              animate={storyVisible ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8 }}
             >
-              <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">
-                Our Journey
-              </p>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-8">
-                Our Story
-              </h2>
+              <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">Our Journey</p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-8">Our Story</h2>
+              <div className="space-y-5">
+                <p className="font-body text-lg text-muted-foreground leading-relaxed">
+                  Founded in 2025, Shadow Arts started as a small exhibition space but
+                  quickly grew into an online community where artists and enthusiasts
+                  could connect and appreciate the beauty of shadows in art.
+                </p>
+                <p className="font-body text-lg text-muted-foreground leading-relaxed">
+                  What began as an intimate gallery celebrating the interplay of light
+                  and darkness has evolved into a comprehensive platform — offering
+                  immersive workshops, handcrafted artwork from master artisans, and
+                  curated programs that preserve and celebrate India's rich cultural
+                  heritage through traditional art forms.
+                </p>
+                <p className="font-body text-lg text-muted-foreground leading-relaxed">
+                  Today, Shadow Arts bridges the gap between ancient artistic traditions
+                  and contemporary expression, making these timeless art forms accessible
+                  to a new generation of creators and collectors.
+                </p>
+              </div>
             </motion.div>
+
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={storyVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="space-y-6"
+              initial={{ opacity: 0, x: 40 }}
+              animate={storyVisible ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
             >
-              <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                Founded in 2025, Shadow Arts started as a small exhibition space but
-                quickly grew into an online community where artists and enthusiasts
-                could connect and appreciate the beauty of shadows in art.
-              </p>
-              <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                What began as an intimate gallery celebrating the interplay of light
-                and darkness has evolved into a comprehensive platform — offering
-                immersive workshops, handcrafted artwork from master artisans, and
-                curated programs that preserve and celebrate India's rich cultural
-                heritage through traditional art forms.
-              </p>
-              <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                Today, Shadow Arts bridges the gap between ancient artistic traditions
-                and contemporary expression, making these timeless art forms accessible
-                to a new generation of creators and collectors.
-              </p>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <img src={aboutWorkshop} alt="Shadow Arts workshop" className="w-full h-[420px] object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="font-display text-2xl text-primary-foreground font-semibold">Where Shadows Come to Life</p>
+                  <p className="font-body text-sm text-primary-foreground/70 mt-1">Our studio, est. 2020</p>
+                </div>
+              </div>
+              <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-secondary/30 rounded-2xl -z-10" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 border-2 border-secondary/20 rounded-2xl -z-10" />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Values */}
+      {/* ═══════════════ ART GALLERY (from repo) ═══════════════ */}
+      <section ref={galleryRef} className="py-24 bg-primary">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={galleryVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">Our Collection</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground">Art Gallery</h2>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate={galleryVisible ? "show" : "hidden"}
+            className="grid md:grid-cols-3 gap-8"
+          >
+            {artworks.map((art) => (
+              <motion.div key={art.id} variants={staggerItem} className="group cursor-pointer">
+                <div className="relative rounded-xl overflow-hidden shadow-lg">
+                  <img
+                    src={art.image}
+                    alt={art.title}
+                    className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <span className="inline-block px-3 py-1 bg-secondary/90 text-secondary-foreground text-xs font-body uppercase tracking-wider rounded-full mb-2">
+                      {art.category}
+                    </span>
+                    <h3 className="font-display text-xl font-semibold text-primary-foreground">{art.title}</h3>
+                    <p className="font-body text-sm text-primary-foreground/70">{art.artist}, {art.year}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════ FEATURED ARTISTS ═══════════════ */}
+      <section ref={artistsRef} className="py-24 bg-background">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={artistsVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">The Creatives</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Featured Artists</h2>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate={artistsVisible ? "show" : "hidden"}
+            className="grid md:grid-cols-3 gap-10"
+          >
+            {artists.map((a) => (
+              <motion.div key={a.name} variants={staggerItem} className="text-center group">
+                <div className="relative w-40 h-40 mx-auto mb-6">
+                  <img
+                    src={a.image}
+                    alt={a.name}
+                    className="w-full h-full rounded-full object-cover border-4 border-secondary/30 group-hover:border-secondary transition-colors duration-300"
+                  />
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-xs font-body px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                    {a.social}
+                  </div>
+                </div>
+                <h3 className="font-display text-xl font-semibold text-foreground mb-1">{a.name}</h3>
+                <p className="font-body text-sm text-muted-foreground">{a.role}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════ VALUES ═══════════════ */}
       <section ref={valuesRef} className="py-24 bg-primary">
         <div className="container">
           <motion.div
@@ -124,12 +250,8 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">
-              What Drives Us
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground">
-              Our Values
-            </h2>
+            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">What Drives Us</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground">Our Values</h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((v, i) => (
@@ -143,45 +265,153 @@ export default function About() {
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-secondary/20 flex items-center justify-center group-hover:bg-secondary/30 transition-colors">
                   <v.icon className="h-7 w-7 text-secondary" />
                 </div>
-                <h3 className="font-display text-xl font-semibold text-primary-foreground mb-3">
-                  {v.title}
-                </h3>
-                <p className="font-body text-sm text-primary-foreground/60 leading-relaxed">
-                  {v.desc}
-                </p>
+                <h3 className="font-display text-xl font-semibold text-primary-foreground mb-3">{v.title}</h3>
+                <p className="font-body text-sm text-primary-foreground/60 leading-relaxed">{v.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Mission */}
-      <section ref={missionRef} className="py-24 bg-background">
+      {/* ═══════════════ UPCOMING WORKSHOPS (from repo) ═══════════════ */}
+      <section ref={workshopsRef} className="py-24 bg-background">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={missionVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7 }}
-            >
-              <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">
-                Our Purpose
-              </p>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-8">
-                Our Mission
-              </h2>
-              <p className="font-body text-xl text-muted-foreground leading-relaxed mb-6">
-                To provide a platform for artists to showcase their unique
-                perspectives and redefine boundaries — exploring the interplay of
-                light and darkness through contemporary art.
-              </p>
-              <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                We believe every shadow tells a story, every brushstroke carries a
-                legacy, and every art form deserves to be preserved, celebrated, and
-                shared with the world.
-              </p>
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={workshopsVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">Learn With Us</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Upcoming Workshops</h2>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate={workshopsVisible ? "show" : "hidden"}
+            className="grid md:grid-cols-3 gap-8"
+          >
+            {workshops.map((w) => (
+              <motion.div
+                key={w.title}
+                variants={staggerItem}
+                className="border border-border rounded-xl p-8 bg-card hover:shadow-xl transition-shadow duration-300 group"
+              >
+                <div className="w-12 h-12 rounded-full bg-secondary/15 flex items-center justify-center mb-6 group-hover:bg-secondary/25 transition-colors">
+                  <Calendar className="h-5 w-5 text-secondary" />
+                </div>
+                <h3 className="font-display text-xl font-semibold text-card-foreground mb-4">{w.title}</h3>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-muted-foreground font-body text-sm">
+                    <Clock className="h-4 w-4 text-secondary/70" />
+                    <span>{w.date}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground font-body text-sm">
+                    <User className="h-4 w-4 text-secondary/70" />
+                    <span>{w.instructor}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={workshopsVisible ? { opacity: 1 } : {}}
+            transition={{ delay: 0.5 }}
+            className="text-center mt-12"
+          >
+            <Link to="/workshops">
+              <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body group">
+                View All Workshops
+                <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════ QUICK LINKS + RESOURCES (from repo footer) ═══════════════ */}
+      <section className="py-16 bg-primary/95">
+        <div className="container">
+          <div className="grid md:grid-cols-3 gap-12">
+            <div>
+              <h3 className="font-display text-lg font-semibold text-primary-foreground mb-4">Quick Links</h3>
+              <ul className="space-y-3">
+                {quickLinks.map((l) => (
+                  <li key={l.label}>
+                    <Link to={l.to} className="font-body text-sm text-primary-foreground/60 hover:text-secondary transition-colors">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-display text-lg font-semibold text-primary-foreground mb-4">Resources</h3>
+              <ul className="space-y-3">
+                {resources.map((l) => (
+                  <li key={l.label}>
+                    <Link to={l.to} className="font-body text-sm text-primary-foreground/60 hover:text-secondary transition-colors">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-display text-lg font-semibold text-primary-foreground mb-4">Follow Us</h3>
+              <div className="flex gap-4">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary/30 transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary/30 transition-colors">
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary hover:bg-secondary/30 transition-colors">
+                  <Facebook className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ CONTACT CTA (from repo) ═══════════════ */}
+      <section ref={ctaRef} className="py-24 bg-background">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={ctaVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7 }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">Get In Touch</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
+              Have Questions? Let's Talk.
+            </h2>
+            <p className="font-body text-lg text-muted-foreground leading-relaxed mb-4">
+              Interested in collaborating? Want to exhibit your work? Reach out to us!
+            </p>
+            <p className="font-body text-muted-foreground mb-10">
+              We believe every shadow tells a story, every brushstroke carries a legacy, and every art form deserves to be preserved, celebrated, and shared with the world.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/contact">
+                <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body group px-8">
+                  <Mail className="h-4 w-4 mr-2" />
+                  Send Message
+                  <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link to="/shop">
+                <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-muted font-body px-8">
+                  Shop Art
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
     </Layout>
