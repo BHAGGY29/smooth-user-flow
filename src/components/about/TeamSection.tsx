@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useState } from "react";
-import { Instagram, Youtube, MessageCircle } from "lucide-react";
+import { useRef, useState } from "react";
+import { Instagram, Youtube, MessageCircle, Sparkles } from "lucide-react";
 
 import teamArunkumar from "@/assets/team-arunkumar.png";
 import teamChandhana from "@/assets/team-chandhana.png";
@@ -16,192 +16,272 @@ interface TeamMember {
   role: string;
   image: string;
   funFact: string;
-  ringColor: string;
-  nameColor: string;
+  accent: string;
+  glowColor: string;
   objectPosition?: string;
-  socials?: {
-    instagram?: string;
-    youtube?: string;
-    whatsapp?: string;
-  };
+  socials?: { instagram?: string; youtube?: string; whatsapp?: string };
 }
 
 const topRow: TeamMember[] = [
   {
-    name: "Arunkumar Parkala",
-    role: "Founder & CEO",
-    image: teamArunkumar,
-    funFact: "Started Shadow Arts from a single workshop in 2020.",
-    ringColor: "from-orange-400 to-red-500",
-    nameColor: "text-orange-500",
+    name: "Arunkumar Parkala", role: "Founder & CEO", image: teamArunkumar,
+    funFact: "Started Shadow Arts from a single workshop in 2020 — now a movement.",
+    accent: "from-amber-400 via-orange-500 to-red-500", glowColor: "rgba(249,115,22,0.3)",
     socials: { instagram: "#", youtube: "#", whatsapp: "#" },
   },
   {
-    name: "Varshitha",
-    role: "Creative Head",
-    image: teamVarshitha,
-    funFact: "Can sketch your portrait in under 3 minutes.",
-    ringColor: "from-amber-400 to-yellow-500",
-    nameColor: "text-amber-500",
+    name: "Varshitha", role: "Creative Head", image: teamVarshitha,
+    funFact: "Can sketch your portrait in under 3 minutes flat.",
+    accent: "from-yellow-300 via-amber-400 to-orange-400", glowColor: "rgba(245,158,11,0.3)",
     socials: { instagram: "#" },
   },
   {
-    name: "Sangem Aravind Reddy",
-    role: "Technical Head",
-    image: teamAravind,
-    objectPosition: "top",
-    funFact: "Bridges art and code — the digital backbone.",
-    ringColor: "from-teal-400 to-emerald-500",
-    nameColor: "text-teal-500",
+    name: "Aravind Reddy", role: "Technical Head", image: teamAravind, objectPosition: "top",
+    funFact: "The tech wizard who bridges art and code seamlessly.",
+    accent: "from-emerald-400 via-teal-500 to-cyan-500", glowColor: "rgba(20,184,166,0.3)",
     socials: { instagram: "#", youtube: "#" },
   },
   {
-    name: "Srinivas",
-    role: "UI/UX Designer & Developer",
-    image: teamSrinivas,
-    funFact: "Pixel-perfect designs meet flawless code.",
-    ringColor: "from-violet-400 to-purple-500",
-    nameColor: "text-violet-500",
+    name: "Srinivas", role: "UI/UX Designer", image: teamSrinivas,
+    funFact: "Pixel-perfect obsession meets creative engineering.",
+    accent: "from-violet-400 via-purple-500 to-fuchsia-500", glowColor: "rgba(139,92,246,0.3)",
     socials: { instagram: "#" },
   },
 ];
 
 const bottomRow: TeamMember[] = [
   {
-    name: "Chandhana",
-    role: "Co-Founder & CCO",
-    image: teamChandhana,
-    funFact: "The creative force behind every visual identity.",
-    ringColor: "from-blue-400 to-indigo-500",
-    nameColor: "text-blue-500",
+    name: "Chandhana", role: "Co-Founder & CCO", image: teamChandhana,
+    funFact: "Turns creative chaos into breathtaking visual stories.",
+    accent: "from-blue-400 via-indigo-500 to-violet-500", glowColor: "rgba(99,102,241,0.3)",
     socials: { instagram: "#", whatsapp: "#" },
   },
   {
-    name: "Sushmitha",
-    role: "Workshop Community Head",
-    image: teamSushmitha,
-    funFact: "Has organized 200+ workshops across India.",
-    ringColor: "from-pink-400 to-rose-500",
-    nameColor: "text-pink-500",
+    name: "Sushmitha", role: "Community Head", image: teamSushmitha,
+    funFact: "200+ workshops organized. Her energy is absolutely contagious.",
+    accent: "from-pink-400 via-rose-500 to-red-400", glowColor: "rgba(244,63,94,0.3)",
     socials: { instagram: "#", whatsapp: "#" },
   },
   {
-    name: "Bhagath Vallala",
-    role: "R&D Engineer",
-    image: teamBhagath,
-    objectPosition: "top",
-    funFact: "If it exists, he's tried to make art with it.",
-    ringColor: "from-cyan-400 to-sky-500",
-    nameColor: "text-cyan-500",
+    name: "Bhagath Vallala", role: "R&D Engineer", image: teamBhagath, objectPosition: "top",
+    funFact: "If it exists, he's already tried making art with it.",
+    accent: "from-sky-400 via-cyan-500 to-teal-400", glowColor: "rgba(6,182,212,0.3)",
     socials: { instagram: "#" },
   },
 ];
 
-function MemberNode({ member, index, position }: { member: TeamMember; index: number; position: "top" | "bottom" }) {
+/* ── Floating particle dots around circles ── */
+function FloatingDots({ active, color }: { active: boolean; color: string }) {
+  return (
+    <>
+      {[...Array(6)].map((_, i) => {
+        const angle = (i * 60) * (Math.PI / 180);
+        const radius = 90;
+        return (
+          <motion.div
+            key={i}
+            animate={{
+              x: active ? Math.cos(angle + Date.now() * 0.001) * radius : 0,
+              y: active ? Math.sin(angle + Date.now() * 0.001) * radius : 0,
+              opacity: active ? [0, 1, 0] : 0,
+              scale: active ? [0, 1.5, 0] : 0,
+            }}
+            transition={{
+              duration: 2,
+              delay: i * 0.2,
+              repeat: active ? Infinity : 0,
+              ease: "easeInOut",
+            }}
+            className="absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full pointer-events-none"
+            style={{ background: color }}
+          />
+        );
+      })}
+    </>
+  );
+}
+
+/* ── Magnetic tilt circle card ── */
+function MemberNode({
+  member, index, position,
+}: {
+  member: TeamMember; index: number; position: "top" | "bottom";
+}) {
+  const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const isTop = position === "top";
 
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [12, -12]), { stiffness: 200, damping: 25 });
+  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-12, 12]), { stiffness: 200, damping: 25 });
+
+  const handleMouse = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    mx.set((e.clientX - rect.left) / rect.width - 0.5);
+    my.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleLeave = () => {
+    mx.set(0); my.set(0); setHovered(false);
+  };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: isTop ? -40 : 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: isTop ? -50 : 50, scale: 0.8 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={`flex flex-col items-center cursor-pointer ${isTop ? "" : ""}`}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className="flex flex-col items-center"
     >
-      {/* Name & Role — on top for top row */}
+      {/* Name & Role on top */}
       {isTop && (
-        <div className="text-center mb-4">
+        <motion.div
+          animate={{ y: hovered ? -4 : 0 }}
+          transition={{ duration: 0.4 }}
+          className="text-center mb-5"
+        >
           <motion.h3
-            animate={{ scale: hovered ? 1.05 : 1 }}
-            transition={{ duration: 0.3 }}
-            className={`font-display text-lg md:text-xl font-bold ${member.nameColor}`}
+            animate={{ scale: hovered ? 1.08 : 1 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-lg md:text-xl font-bold text-foreground"
           >
             {member.name}
           </motion.h3>
-          <p className="font-body text-xs md:text-sm text-muted-foreground mt-1 max-w-[180px] leading-relaxed">
+          <motion.p
+            animate={{ opacity: hovered ? 1 : 0.6 }}
+            className="font-body text-xs tracking-[0.2em] uppercase text-muted-foreground mt-1"
+          >
             {member.role}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       )}
 
-      {/* Circular image with colored ring */}
-      <div className="relative">
-        {/* Gradient ring */}
+      {/* Circle container with 3D tilt */}
+      <motion.div
+        ref={ref}
+        style={{ rotateX, rotateY, transformPerspective: 800 }}
+        onMouseMove={handleMouse}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={handleLeave}
+        className="relative cursor-pointer will-change-transform"
+      >
+        {/* Outer glow pulse */}
         <motion.div
           animate={{
-            scale: hovered ? 1.06 : 1,
-            rotate: hovered ? 180 : 0,
+            opacity: hovered ? 0.8 : 0,
+            scale: hovered ? 1.2 : 0.9,
           }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className={`absolute -inset-[4px] rounded-full bg-gradient-to-br ${member.ringColor}`}
+          transition={{ duration: 0.6 }}
+          className="absolute -inset-6 rounded-full blur-2xl pointer-events-none"
+          style={{ background: member.glowColor }}
         />
 
-        {/* White gap */}
-        <div className="absolute -inset-[1px] rounded-full bg-background" />
+        {/* Spinning gradient ring */}
+        <motion.div
+          animate={{ rotate: hovered ? 360 : 0 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className={`absolute -inset-[5px] rounded-full bg-gradient-to-br ${member.accent} p-[3px]`}
+        >
+          <div className="w-full h-full rounded-full bg-background" />
+        </motion.div>
+
+        {/* Second decorative dashed ring */}
+        <motion.div
+          animate={{
+            rotate: hovered ? -180 : 0,
+            opacity: hovered ? 0.5 : 0.15,
+            scale: hovered ? 1.12 : 1.08,
+          }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute -inset-4 rounded-full border border-dashed border-muted-foreground/30 pointer-events-none"
+        />
+
+        {/* Floating particles */}
+        <FloatingDots active={hovered} color={member.glowColor} />
 
         {/* Photo */}
-        <div className="relative w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full overflow-hidden">
+        <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 rounded-full overflow-hidden">
           <motion.img
             src={member.image}
             alt={member.name}
             style={member.objectPosition ? { objectPosition: member.objectPosition } : undefined}
             className="w-full h-full object-cover"
-            animate={{ scale: hovered ? 1.1 : 1 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            animate={{
+              scale: hovered ? 1.15 : 1,
+              filter: hovered ? "grayscale(0%) brightness(1.1)" : "grayscale(20%) brightness(0.92)",
+            }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           />
 
-          {/* Hover overlay with fun fact */}
+          {/* Hover overlay */}
           <motion.div
             animate={{ opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center p-3"
+            transition={{ duration: 0.35 }}
+            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 flex flex-col items-center justify-end p-4 pb-5"
           >
-            <p className="font-body text-[10px] md:text-xs text-white/90 text-center leading-relaxed">
+            <motion.p
+              initial={{ y: 10 }}
+              animate={{ y: hovered ? 0 : 10, opacity: hovered ? 1 : 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="font-body text-[10px] md:text-xs text-white/90 text-center leading-relaxed"
+            >
               {member.funFact}
-            </p>
+            </motion.p>
+
             {member.socials && (
-              <div className="flex items-center gap-2 mt-2">
+              <motion.div
+                initial={{ y: 10 }}
+                animate={{ y: hovered ? 0 : 10, opacity: hovered ? 1 : 0 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                className="flex items-center gap-2 mt-2.5"
+              >
                 {member.socials.instagram && (
                   <a href={member.socials.instagram} target="_blank" rel="noopener noreferrer"
-                    className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/40 transition-colors">
+                    className="w-7 h-7 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors">
                     <Instagram className="w-3 h-3" />
                   </a>
                 )}
                 {member.socials.youtube && (
                   <a href={member.socials.youtube} target="_blank" rel="noopener noreferrer"
-                    className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/40 transition-colors">
+                    className="w-7 h-7 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors">
                     <Youtube className="w-3 h-3" />
                   </a>
                 )}
                 {member.socials.whatsapp && (
                   <a href={member.socials.whatsapp} target="_blank" rel="noopener noreferrer"
-                    className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/40 transition-colors">
+                    className="w-7 h-7 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors">
                     <MessageCircle className="w-3 h-3" />
                   </a>
                 )}
-              </div>
+              </motion.div>
             )}
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Name & Role — below for bottom row */}
+      {/* Name & Role below for bottom row */}
       {!isTop && (
-        <div className="text-center mt-4">
+        <motion.div
+          animate={{ y: hovered ? 4 : 0 }}
+          transition={{ duration: 0.4 }}
+          className="text-center mt-5"
+        >
           <motion.h3
-            animate={{ scale: hovered ? 1.05 : 1 }}
-            transition={{ duration: 0.3 }}
-            className={`font-display text-lg md:text-xl font-bold ${member.nameColor}`}
+            animate={{ scale: hovered ? 1.08 : 1 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-lg md:text-xl font-bold text-foreground"
           >
             {member.name}
           </motion.h3>
-          <p className="font-body text-xs md:text-sm text-muted-foreground mt-1 max-w-[180px] leading-relaxed">
+          <motion.p
+            animate={{ opacity: hovered ? 1 : 0.6 }}
+            className="font-body text-xs tracking-[0.2em] uppercase text-muted-foreground mt-1"
+          >
             {member.role}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       )}
     </motion.div>
   );
@@ -211,55 +291,93 @@ export default function TeamSection() {
   const { ref, isVisible } = useScrollReveal(0.1);
 
   return (
-    <section ref={ref} className="relative py-28 md:py-36 overflow-hidden bg-background">
+    <section ref={ref} className="relative py-28 md:py-40 overflow-hidden bg-background">
+      {/* Ambient background blurs */}
+      <motion.div
+        animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-20 left-[10%] w-[350px] h-[350px] rounded-full bg-secondary/[0.05] blur-[120px] pointer-events-none"
+      />
+      <motion.div
+        animate={{ x: [0, -25, 0], y: [0, 25, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-20 right-[10%] w-[300px] h-[300px] rounded-full bg-secondary/[0.04] blur-[100px] pointer-events-none"
+      />
+
       <div className="container relative z-10">
         {/* Header */}
-        <div className="max-w-2xl mx-auto text-center mb-16 md:mb-24">
+        <div className="max-w-3xl mx-auto text-center mb-20 md:mb-28">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="font-body text-muted-foreground tracking-[0.35em] uppercase text-[11px] mb-3">
-              The People
+            <motion.div className="flex items-center justify-center gap-2 mb-4">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={isVisible ? { width: 40 } : {}}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="h-px bg-secondary/40"
+              />
+              <Sparkles className="w-4 h-4 text-secondary/60" />
+              <motion.div
+                initial={{ width: 0 }}
+                animate={isVisible ? { width: 40 } : {}}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="h-px bg-secondary/40"
+              />
+            </motion.div>
+            <p className="font-body text-muted-foreground tracking-[0.4em] uppercase text-[11px] mb-4">
+              The Creatives
             </p>
-            <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[0.95]">
-              Meet the <span className="italic text-secondary">Team</span>
+            <h2 className="font-display text-5xl md:text-7xl font-bold text-foreground leading-[0.9]">
+              Meet the
+              <br />
+              <span className="italic text-secondary">Team</span>
             </h2>
+            <p className="font-body text-muted-foreground/60 text-sm mt-6 max-w-sm mx-auto">
+              The passionate humans crafting every experience at Shadow Arts.
+            </p>
           </motion.div>
         </div>
 
-        {/* Zigzag layout with connecting curve */}
+        {/* Zigzag layout */}
         <div className="relative max-w-6xl mx-auto">
-          {/* Dashed connecting curve — SVG */}
+          {/* Animated dashed connecting path */}
           <svg
-            className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
-            viewBox="0 0 1000 500"
+            className="absolute inset-0 w-full h-full pointer-events-none hidden lg:block"
+            viewBox="0 0 1000 520"
             preserveAspectRatio="none"
             fill="none"
           >
             <motion.path
-              d="M 80 120 Q 200 350, 320 350 Q 440 350, 520 120 Q 600 350, 720 350 Q 840 350, 920 120"
-              stroke="hsl(var(--muted-foreground))"
-              strokeWidth="2"
-              strokeDasharray="8 8"
+              d="M 60 140 C 140 380, 220 400, 310 380 C 400 360, 420 140, 500 140 C 580 140, 600 380, 690 380 C 780 380, 860 140, 940 140"
+              stroke="url(#curveGrad)"
+              strokeWidth="1.5"
+              strokeDasharray="6 8"
               fill="none"
-              opacity="0.25"
-              initial={{ pathLength: 0 }}
-              animate={isVisible ? { pathLength: 1 } : {}}
-              transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={isVisible ? { pathLength: 1, opacity: 0.4 } : {}}
+              transition={{ duration: 2.5, delay: 0.8, ease: "easeInOut" }}
             />
+            <defs>
+              <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="hsl(var(--secondary))" stopOpacity="0.2" />
+                <stop offset="50%" stopColor="hsl(var(--secondary))" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="hsl(var(--secondary))" stopOpacity="0.2" />
+              </linearGradient>
+            </defs>
           </svg>
 
           {/* Top row */}
-          <div className="flex flex-wrap justify-around items-end gap-6 md:gap-0 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 relative z-10">
             {topRow.map((member, i) => (
               <MemberNode key={member.name} member={member} index={i} position="top" />
             ))}
           </div>
 
-          {/* Bottom row — offset, positioned between top members */}
-          <div className="flex flex-wrap justify-around items-start gap-6 md:gap-0 mt-6 md:-mt-8 relative z-10 md:px-[10%]">
+          {/* Bottom row — offset between top members */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4 mt-10 md:-mt-4 relative z-10 md:px-[8%]">
             {bottomRow.map((member, i) => (
               <MemberNode key={member.name} member={member} index={i + topRow.length} position="bottom" />
             ))}
