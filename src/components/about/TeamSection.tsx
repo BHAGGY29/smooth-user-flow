@@ -9,6 +9,7 @@ import teamVarshitha from "@/assets/team-varshitha.png";
 import teamSushmitha from "@/assets/team-sushmitha.png";
 import teamAravind from "@/assets/team-aravind.png";
 import teamBhagath from "@/assets/team-bhagath.png";
+import teamSrinivas from "@/assets/team-srinivas.png";
 
 interface TeamMember {
   name: string;
