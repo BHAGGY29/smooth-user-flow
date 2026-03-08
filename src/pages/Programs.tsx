@@ -100,6 +100,7 @@ const programs = [
       { icon: Users, text: "A supportive community of women celebrating culture & creativity" },
     ],
     galleryImages: [womenGallery1, womenGallery2, womenGallery3, womenGallery4, womenGallery5, womenGallery6],
+  },
   {
     title: "Bright Minds Summer Camp",
     subtitle: "For Children · Ages 6–14 · Boys & Girls",
@@ -116,6 +117,7 @@ const programs = [
       { icon: BookOpen, text: "Take-home art portfolio and certificate of completion" },
     ],
     galleryImages: [],
+  },
   {
     title: "Professional Art Courses",
     subtitle: "Certification · Career Track",
@@ -132,6 +134,7 @@ const programs = [
       { icon: Palette, text: "Portfolio development, gallery exposure & career guidance" },
     ],
     galleryImages: [],
+  },
 ];
 
 const sectionVariants = {
