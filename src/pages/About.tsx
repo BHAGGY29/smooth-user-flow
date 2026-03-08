@@ -194,6 +194,7 @@ export default function About() {
                   <img
                     src={a.image}
                     alt={a.name}
+                    style={a.objectPosition ? { objectPosition: a.objectPosition } : undefined}
                     className="w-full h-full rounded-full object-cover border-4 border-secondary/30 group-hover:border-secondary transition-colors duration-300"
                   />
                 </div>
