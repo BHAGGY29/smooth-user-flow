@@ -69,6 +69,13 @@ const teamMembers: TeamMember[] = [
     funFact: "Always experimenting with new mediums. If it exists, he's tried to make art with it.",
     socials: { instagram: "#" },
   },
+  {
+    name: "Srinivas",
+    role: "UI/UX Designer & Developer",
+    image: teamSrinivas,
+    funFact: "Obsessed with pixel-perfect designs. Bridges the gap between beautiful interfaces and flawless code.",
+    socials: { instagram: "#" },
+  },
 ];
 
 function MemberCard({ member, index }: { member: TeamMember; index: number }) {
