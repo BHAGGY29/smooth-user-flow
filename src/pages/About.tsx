@@ -12,9 +12,8 @@ import aboutWorkshop from "@/assets/about-workshop.jpg";
 import aboutHeroBg from "@/assets/about-hero-bg.jpeg";
 import aboutHeroBg2 from "@/assets/about-hero-bg-2.jpeg";
 import aboutHeroBg3 from "@/assets/hero-home-bg.jpeg";
-import artistElena from "@/assets/artist-elena.jpg";
-import artistJames from "@/assets/artist-james.jpg";
-import artistSofia from "@/assets/artist-sofia.jpg";
+import teamArunkumar from "@/assets/team-arunkumar.png";
+import teamChandhana from "@/assets/team-chandhana.png";
 import mouCbit from "@/assets/mou-cbit.png";
 import mouPidilite from "@/assets/mou-pidilite.png";
 import mouVaagdevi from "@/assets/mou-vaagdevi.png";
@@ -22,10 +21,9 @@ import mouSrUniversity from "@/assets/mou-sr-university.png";
 
 /* ── Data from the GitHub repo ── */
 
-const artists = [
-  { name: "Elena Myers", role: "Abstract & Shadow Art", image: artistElena, social: "@elenamyers" },
-  { name: "James Chen", role: "Urban Photography", image: artistJames, social: "@jameschen" },
-  { name: "Sofia Rodriguez", role: "Sculptor", image: artistSofia, social: "@sofiarodriguez" },
+const teamMembers = [
+  { name: "Arunkumar Parkala", role: "Founder & CEO", image: teamArunkumar },
+  { name: "Chandhana", role: "Chief Creative Officer & Managing Director", image: teamChandhana },
 ];
 
 const mouPartners = [
@@ -171,17 +169,17 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">The Creatives</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Featured Artists</h2>
+            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">The People Behind Shadow Arts</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Our Team</h2>
           </motion.div>
 
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate={artistsVisible ? "show" : "hidden"}
-            className="grid md:grid-cols-3 gap-10"
+            className="grid md:grid-cols-2 gap-10 max-w-2xl mx-auto"
           >
-            {artists.map((a) => (
+            {teamMembers.map((a) => (
               <motion.div key={a.name} variants={staggerItem} className="text-center group">
                 <div className="relative w-40 h-40 mx-auto mb-6">
                   <img
@@ -189,9 +187,6 @@ export default function About() {
                     alt={a.name}
                     className="w-full h-full rounded-full object-cover border-4 border-secondary/30 group-hover:border-secondary transition-colors duration-300"
                   />
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-xs font-body px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                    {a.social}
-                  </div>
                 </div>
                 <h3 className="font-display text-xl font-semibold text-foreground mb-1">{a.name}</h3>
                 <p className="font-body text-sm text-muted-foreground">{a.role}</p>
