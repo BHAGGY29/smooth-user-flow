@@ -27,6 +27,8 @@ import mouSrUniversity from "@/assets/mou-sr-university.png";
 const teamMembers = [
   { name: "Arunkumar Parkala", role: "Founder & CEO", image: teamArunkumar },
   { name: "Chandhana", role: "Chief Creative Officer & Managing Director", image: teamChandhana },
+  { name: "Varshitha", role: "Creative Head", image: teamVarshitha },
+  { name: "Sushmitha", role: "Workshop Community Head", image: teamSushmitha },
 ];
 
 const mouPartners = [
