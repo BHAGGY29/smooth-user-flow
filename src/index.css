@@ -105,3 +105,8 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary to-[hsl(25,50%,50%)];
   }
 }
+
+@keyframes fadeSlide {
+  0%, 20% { opacity: 0.6; }
+  33%, 100% { opacity: 0; }
+}
