@@ -1,7 +1,7 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useState } from "react";
-import { Instagram, Youtube, MessageCircle, ArrowUpRight } from "lucide-react";
+import { Instagram, Youtube, MessageCircle } from "lucide-react";
 
 import teamArunkumar from "@/assets/team-arunkumar.png";
 import teamChandhana from "@/assets/team-chandhana.png";
@@ -29,28 +29,28 @@ const teamMembers: TeamMember[] = [
     name: "Arunkumar Parkala",
     role: "Founder & CEO",
     image: teamArunkumar,
-    funFact: "Believes every shadow tells a story. Started Shadow Arts from a single workshop in 2020.",
+    funFact: "Started Shadow Arts from a single workshop in 2020.",
     socials: { instagram: "#", youtube: "#", whatsapp: "#" },
   },
   {
     name: "Chandhana",
     role: "Co-Founder & CCO",
     image: teamChandhana,
-    funFact: "The creative force behind every visual identity. Turns chaos into breathtaking art.",
+    funFact: "The creative force behind every visual identity.",
     socials: { instagram: "#", whatsapp: "#" },
   },
   {
     name: "Varshitha",
     role: "Creative Head",
     image: teamVarshitha,
-    funFact: "Can sketch your portrait in under 3 minutes. Lives and breathes color theory.",
+    funFact: "Can sketch your portrait in under 3 minutes.",
     socials: { instagram: "#" },
   },
   {
     name: "Sushmitha",
     role: "Workshop Community Head",
     image: teamSushmitha,
-    funFact: "Has organized 200+ workshops. Her energy is contagious in every session.",
+    funFact: "Has organized 200+ workshops across India.",
     socials: { instagram: "#", whatsapp: "#" },
   },
   {
@@ -58,7 +58,7 @@ const teamMembers: TeamMember[] = [
     role: "Technical Head",
     image: teamAravind,
     objectPosition: "top",
-    funFact: "The tech wizard who bridges art and code. Builds the digital backbone of Shadow Arts.",
+    funFact: "Bridges art and code — the digital backbone.",
     socials: { instagram: "#", youtube: "#" },
   },
   {
@@ -66,202 +66,138 @@ const teamMembers: TeamMember[] = [
     role: "R&D Engineer",
     image: teamBhagath,
     objectPosition: "top",
-    funFact: "Always experimenting with new mediums. If it exists, he's tried to make art with it.",
+    funFact: "If it exists, he's tried to make art with it.",
     socials: { instagram: "#" },
   },
   {
     name: "Srinivas",
     role: "UI/UX Designer & Developer",
     image: teamSrinivas,
-    funFact: "Obsessed with pixel-perfect designs. Bridges the gap between beautiful interfaces and flawless code.",
+    funFact: "Pixel-perfect designs meet flawless code.",
     socials: { instagram: "#" },
   },
 ];
 
-/* ── Horizontal Hover-Reveal Row ── */
-function MemberRow({ member, index }: { member: TeamMember; index: number }) {
+function SocialIcon({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-8 h-8 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-primary-foreground/70 hover:bg-secondary hover:text-primary transition-all duration-300 hover:scale-110"
+    >
+      {children}
+    </a>
+  );
+}
+
+function MemberCircle({ member, index }: { member: TeamMember; index: number }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      initial={{ opacity: 0, y: 50, scale: 0.85 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: 0.6,
-        delay: index * 0.08,
+        duration: 0.7,
+        delay: index * 0.1,
         ease: [0.22, 1, 0.36, 1],
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative cursor-pointer"
+      className="flex flex-col items-center group cursor-pointer"
     >
-      {/* Main row */}
-      <div className="relative flex items-center gap-5 md:gap-8 py-6 md:py-8 border-b border-white/[0.07] hover:border-secondary/30 transition-colors duration-500">
-        {/* Number */}
-        <motion.span
-          animate={{ opacity: hovered ? 1 : 0.2, x: hovered ? 4 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="font-display text-sm md:text-base text-secondary/80 w-8 shrink-0 tabular-nums"
-        >
-          {String(index + 1).padStart(2, "0")}
-        </motion.span>
+      {/* Circular photo container */}
+      <div className="relative w-36 h-36 md:w-44 md:h-44 lg:w-52 lg:h-52 rounded-full">
+        {/* Animated ring */}
+        <motion.div
+          animate={{
+            scale: hovered ? 1.04 : 1,
+            opacity: hovered ? 1 : 0,
+          }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute -inset-1.5 rounded-full border-2 border-secondary/50"
+        />
 
-        {/* Avatar — circular, reveals on hover with scale */}
-        <div className="relative w-12 h-12 md:w-16 md:h-16 shrink-0 overflow-hidden rounded-full bg-white/5">
+        {/* Outer glow */}
+        <motion.div
+          animate={{ opacity: hovered ? 0.6 : 0, scale: hovered ? 1.1 : 1 }}
+          transition={{ duration: 0.6 }}
+          className="absolute -inset-4 rounded-full bg-secondary/10 blur-xl pointer-events-none"
+        />
+
+        {/* Image wrapper */}
+        <div className="relative w-full h-full rounded-full overflow-hidden bg-muted">
+          {/* Main photo */}
           <motion.img
             src={member.image}
             alt={member.name}
             style={member.objectPosition ? { objectPosition: member.objectPosition } : undefined}
             className="w-full h-full object-cover"
             animate={{
-              filter: hovered ? "grayscale(0%)" : "grayscale(100%)",
-              scale: hovered ? 1.15 : 1,
+              scale: hovered ? 1.12 : 1,
+              filter: hovered ? "grayscale(0%) brightness(1.05)" : "grayscale(30%) brightness(0.95)",
             }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           />
-          {/* Colored ring on hover */}
+
+          {/* Crossfade overlay — role & fun fact */}
           <motion.div
             animate={{ opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute inset-0 rounded-full ring-2 ring-secondary/50"
-          />
-        </div>
-
-        {/* Name & Role */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-baseline gap-3 md:gap-4">
-            <motion.h3
-              animate={{ x: hovered ? 8 : 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-xl md:text-3xl lg:text-4xl font-bold text-primary-foreground leading-none truncate"
-            >
-              {member.name}
-            </motion.h3>
-            <motion.div
-              animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -10 }}
-              transition={{ duration: 0.3, delay: 0.05 }}
-            >
-              <ArrowUpRight className="w-5 h-5 text-secondary shrink-0" />
-            </motion.div>
-          </div>
-          <motion.p
-            animate={{ x: hovered ? 8 : 0, opacity: hovered ? 1 : 0.5 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="font-body text-xs md:text-sm tracking-[0.15em] uppercase text-secondary/70 mt-1.5"
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="absolute inset-0 rounded-full bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col items-center justify-end pb-6 md:pb-8"
           >
-            {member.role}
-          </motion.p>
+            <p className="font-body text-[10px] md:text-xs text-white/80 text-center px-6 leading-relaxed max-w-[80%]">
+              {member.funFact}
+            </p>
+          </motion.div>
         </div>
-
-        {/* Social icons — desktop only, slide in from right */}
-        <div className="hidden md:flex items-center gap-2">
-          <AnimatePresence>
-            {hovered && member.socials && (
-              <>
-                {member.socials.instagram && (
-                  <motion.a
-                    href={member.socials.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: 12, scale: 0.8 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: 8, scale: 0.8 }}
-                    transition={{ duration: 0.3, delay: 0 }}
-                    className="w-9 h-9 rounded-full bg-white/[0.06] backdrop-blur-sm flex items-center justify-center text-white/60 hover:bg-secondary hover:text-primary transition-colors duration-200"
-                  >
-                    <Instagram className="w-4 h-4" />
-                  </motion.a>
-                )}
-                {member.socials.youtube && (
-                  <motion.a
-                    href={member.socials.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: 12, scale: 0.8 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: 8, scale: 0.8 }}
-                    transition={{ duration: 0.3, delay: 0.05 }}
-                    className="w-9 h-9 rounded-full bg-white/[0.06] backdrop-blur-sm flex items-center justify-center text-white/60 hover:bg-secondary hover:text-primary transition-colors duration-200"
-                  >
-                    <Youtube className="w-4 h-4" />
-                  </motion.a>
-                )}
-                {member.socials.whatsapp && (
-                  <motion.a
-                    href={member.socials.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: 12, scale: 0.8 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: 8, scale: 0.8 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                    className="w-9 h-9 rounded-full bg-white/[0.06] backdrop-blur-sm flex items-center justify-center text-white/60 hover:bg-secondary hover:text-primary transition-colors duration-200"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                  </motion.a>
-                )}
-              </>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Background highlight on hover */}
-        <motion.div
-          animate={{ opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
-          className="absolute inset-0 -mx-6 rounded-2xl bg-white/[0.02] pointer-events-none"
-        />
-
-        {/* Accent line left edge */}
-        <motion.div
-          animate={{ scaleY: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute left-0 top-2 bottom-2 w-[2px] bg-secondary origin-top rounded-full"
-        />
       </div>
 
-      {/* Expandable detail panel — slides down on hover */}
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="flex items-start gap-5 md:gap-8 pb-6 pl-[3.25rem] md:pl-[6.5rem]">
-              <div className="flex-1">
-                <p className="font-body text-sm text-primary-foreground/50 leading-relaxed max-w-lg">
-                  "{member.funFact}"
-                </p>
-                {/* Mobile socials */}
-                <div className="flex md:hidden items-center gap-2 mt-3">
-                  {member.socials?.instagram && (
-                    <a href={member.socials.instagram} target="_blank" rel="noopener noreferrer"
-                      className="w-8 h-8 rounded-full bg-white/[0.06] flex items-center justify-center text-white/60 hover:bg-secondary hover:text-primary transition-colors">
-                      <Instagram className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                  {member.socials?.youtube && (
-                    <a href={member.socials.youtube} target="_blank" rel="noopener noreferrer"
-                      className="w-8 h-8 rounded-full bg-white/[0.06] flex items-center justify-center text-white/60 hover:bg-secondary hover:text-primary transition-colors">
-                      <Youtube className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                  {member.socials?.whatsapp && (
-                    <a href={member.socials.whatsapp} target="_blank" rel="noopener noreferrer"
-                      className="w-8 h-8 rounded-full bg-white/[0.06] flex items-center justify-center text-white/60 hover:bg-secondary hover:text-primary transition-colors">
-                      <MessageCircle className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Name — always visible */}
+      <motion.h3
+        animate={{ y: hovered ? 2 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="font-display text-base md:text-lg font-bold text-primary-foreground mt-5 text-center leading-tight"
+      >
+        {member.name}
+      </motion.h3>
+
+      {/* Role — crossfades to social icons on hover */}
+      <div className="relative h-8 mt-1.5 flex items-center justify-center">
+        {/* Role text */}
+        <motion.p
+          animate={{ opacity: hovered ? 0 : 1, y: hovered ? -6 : 0 }}
+          transition={{ duration: 0.25 }}
+          className="font-body text-xs tracking-[0.15em] uppercase text-secondary/70 absolute"
+        >
+          {member.role}
+        </motion.p>
+
+        {/* Social icons — crossfade in */}
+        <motion.div
+          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 6 }}
+          transition={{ duration: 0.3, delay: hovered ? 0.1 : 0 }}
+          className="flex items-center gap-2 absolute"
+        >
+          {member.socials?.instagram && (
+            <SocialIcon href={member.socials.instagram}>
+              <Instagram className="w-3.5 h-3.5" />
+            </SocialIcon>
+          )}
+          {member.socials?.youtube && (
+            <SocialIcon href={member.socials.youtube}>
+              <Youtube className="w-3.5 h-3.5" />
+            </SocialIcon>
+          )}
+          {member.socials?.whatsapp && (
+            <SocialIcon href={member.socials.whatsapp}>
+              <MessageCircle className="w-3.5 h-3.5" />
+            </SocialIcon>
+          )}
+        </motion.div>
+      </div>
     </motion.div>
   );
 }
@@ -271,18 +207,15 @@ export default function TeamSection() {
 
   return (
     <section ref={ref} className="relative py-28 md:py-36 overflow-hidden bg-primary">
-      {/* Noise texture */}
-      <div
-        className="absolute inset-0 opacity-[0.015]"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--secondary)) 1px, transparent 0)`,
-          backgroundSize: "32px 32px",
-        }}
-      />
+      {/* Subtle radial texture */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--secondary)) 0.5px, transparent 0)`,
+        backgroundSize: "36px 36px",
+      }} />
 
-      <div className="container relative z-10 max-w-5xl">
+      <div className="container relative z-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-20">
+        <div className="max-w-2xl mx-auto text-center mb-16 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -291,35 +224,23 @@ export default function TeamSection() {
             <p className="font-body text-secondary/60 tracking-[0.35em] uppercase text-[11px] mb-3">
               The People
             </p>
-            <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-[0.9]">
-              Meet the
-              <br />
-              <span className="italic text-secondary">Team</span>
+            <h2 className="font-display text-4xl md:text-6xl font-bold text-primary-foreground leading-[0.95]">
+              Meet the <span className="italic text-secondary">Team</span>
             </h2>
           </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="font-body text-primary-foreground/40 text-sm max-w-xs leading-relaxed"
-          >
-            Hover over each name to reveal the humans behind Shadow Arts.
-          </motion.p>
         </div>
 
-        {/* Top border */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={isVisible ? { scaleX: 1 } : {}}
-          transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="h-px bg-white/10 origin-left mb-0"
-        />
+        {/* Leaders row — larger circles */}
+        <div className="flex flex-wrap justify-center gap-10 md:gap-16 lg:gap-20 mb-14 md:mb-20">
+          {teamMembers.slice(0, 2).map((member, i) => (
+            <MemberCircle key={member.name} member={member} index={i} />
+          ))}
+        </div>
 
-        {/* Rows */}
-        <div>
-          {teamMembers.map((member, i) => (
-            <MemberRow key={member.name} member={member} index={i} />
+        {/* Core team — smaller circles, tighter grid */}
+        <div className="flex flex-wrap justify-center gap-8 md:gap-12 lg:gap-14">
+          {teamMembers.slice(2).map((member, i) => (
+            <MemberCircle key={member.name} member={member} index={i + 2} />
           ))}
         </div>
       </div>
