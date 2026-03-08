@@ -35,9 +35,9 @@ export default function Footer() {
           <div>
             <h4 className="font-display text-sm font-semibold text-primary-foreground uppercase tracking-widest mb-4">Contact</h4>
             <ul className="space-y-3 font-body text-sm">
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-secondary" /> shadowartsteam@gmail.com</li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-secondary" /> +91 97013 60746</li>
-              <li className="flex items-start gap-2"><MapPin className="h-4 w-4 text-secondary mt-0.5" /> 16-4-1402/1, Pallavi Hospital Line, Under Bridge Rd, Shiva Nagar, Warangal, Telangana 506002</li>
+              <li><a href="mailto:shadowartsteam@gmail.com" className="flex items-center gap-2 hover:text-secondary transition-colors"><Mail className="h-4 w-4 text-secondary" /> shadowartsteam@gmail.com</a></li>
+              <li><a href="tel:+919701360746" className="flex items-center gap-2 hover:text-secondary transition-colors"><Phone className="h-4 w-4 text-secondary" /> +91 97013 60746</a></li>
+              <li><a href="https://maps.google.com/?q=16-4-1402/1,+Pallavi+Hospital+Line,+Under+Bridge+Rd,+Shiva+Nagar,+Warangal,+Telangana+506002" target="_blank" rel="noopener noreferrer" className="flex items-start gap-2 hover:text-secondary transition-colors"><MapPin className="h-4 w-4 text-secondary mt-0.5" /> 16-4-1402/1, Pallavi Hospital Line, Under Bridge Rd, Shiva Nagar, Warangal, Telangana 506002</a></li>
             </ul>
           </div>
 

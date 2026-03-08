@@ -87,9 +87,9 @@ export default function Contact() {
               <div>
                 <h3 className="font-display text-xl font-semibold text-foreground mb-4">Contact Info</h3>
                 <div className="space-y-4 font-body text-muted-foreground">
-                  <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-secondary" /> shadowartsteam@gmail.com</div>
-                  <div className="flex items-center gap-3"><Phone className="h-5 w-5 text-secondary" /> +91 97013 60746</div>
-                  <div className="flex items-start gap-3"><MapPin className="h-5 w-5 text-secondary mt-0.5" /> 16-4-1402/1, Pallavi Hospital Line, Under Bridge Rd, Shiva Nagar, Warangal, Telangana 506002</div>
+                  <a href="mailto:shadowartsteam@gmail.com" className="flex items-center gap-3 hover:text-secondary transition-colors"><Mail className="h-5 w-5 text-secondary" /> shadowartsteam@gmail.com</a>
+                  <a href="tel:+919701360746" className="flex items-center gap-3 hover:text-secondary transition-colors"><Phone className="h-5 w-5 text-secondary" /> +91 97013 60746</a>
+                  <a href="https://maps.google.com/?q=16-4-1402/1,+Pallavi+Hospital+Line,+Under+Bridge+Rd,+Shiva+Nagar,+Warangal,+Telangana+506002" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-secondary transition-colors"><MapPin className="h-5 w-5 text-secondary mt-0.5" /> 16-4-1402/1, Pallavi Hospital Line, Under Bridge Rd, Shiva Nagar, Warangal, Telangana 506002</a>
                 </div>
               </div>
             </div>
