@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import logo from "@/assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, User, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -47,7 +48,8 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-primary-foreground/10">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="font-display text-2xl font-bold text-primary-foreground tracking-wide">
+        <Link to="/" className="flex items-center gap-2 font-display text-2xl font-bold text-primary-foreground tracking-wide">
+          <img src={logo} alt="Shadow Arts logo" className="h-9 w-9 object-contain" />
           Shadow <span className="text-secondary">Arts</span>
         </Link>
 
