@@ -12,6 +12,10 @@ import aboutWorkshop from "@/assets/about-workshop.jpg";
 import artistElena from "@/assets/artist-elena.jpg";
 import artistJames from "@/assets/artist-james.jpg";
 import artistSofia from "@/assets/artist-sofia.jpg";
+import mouCbit from "@/assets/mou-cbit.png";
+import mouPidilite from "@/assets/mou-pidilite.png";
+import mouVaagdevi from "@/assets/mou-vaagdevi.png";
+import mouSrUniversity from "@/assets/mou-sr-university.png";
 
 /* ── Data from the GitHub repo ── */
 
@@ -19,6 +23,13 @@ const artists = [
   { name: "Elena Myers", role: "Abstract & Shadow Art", image: artistElena, social: "@elenamyers" },
   { name: "James Chen", role: "Urban Photography", image: artistJames, social: "@jameschen" },
   { name: "Sofia Rodriguez", role: "Sculptor", image: artistSofia, social: "@sofiarodriguez" },
+];
+
+const mouPartners = [
+  { name: "Chaitanya Bharathi Institute of Technology", image: mouCbit },
+  { name: "Pidilite", image: mouPidilite },
+  { name: "Vaagdevi College of Engineering", image: mouVaagdevi },
+  { name: "SR University", image: mouSrUniversity },
 ];
 
 const values = [
@@ -179,6 +190,48 @@ export default function About() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+
+      {/* ═══════════════ MOU PARTNERS ═══════════════ */}
+      <section className="py-24 bg-muted/30">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">Our Partners</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">MOUs & Collaborations</h2>
+            <p className="font-body text-muted-foreground mt-4 max-w-2xl mx-auto">
+              We are proud to collaborate with leading institutions and organizations to promote art education and cultural heritage.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {mouPartners.map((partner, i) => (
+              <motion.div
+                key={partner.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-background rounded-2xl p-6 flex flex-col items-center text-center shadow-md hover:shadow-lg transition-shadow group"
+              >
+                <div className="w-28 h-28 mb-4 flex items-center justify-center rounded-xl bg-white p-2">
+                  <img
+                    src={partner.image}
+                    alt={partner.name}
+                    className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <h3 className="font-display text-sm font-semibold text-foreground leading-tight">{partner.name}</h3>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
