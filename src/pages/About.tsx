@@ -170,73 +170,129 @@ export default function About() {
       </section>
 
       {/* ═══════════════ TEAM ═══════════════ */}
-      <section ref={artistsRef} className="py-24 bg-muted/20 overflow-hidden">
-        <div className="container">
+      <section ref={artistsRef} className="py-32 bg-primary relative overflow-hidden">
+        {/* Ambient background elements */}
+        <div className="absolute inset-0 pointer-events-none">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+            className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full border border-secondary/10"
+          />
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+            className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full border border-secondary/5"
+          />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-secondary/[0.03] rounded-full blur-3xl" />
+        </div>
+
+        <div className="container relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
             animate={artistsVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center mb-20"
           >
-            <p className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4">The People Behind Shadow Arts</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Team ShadowArts</h2>
+            <motion.p
+              initial={{ opacity: 0, letterSpacing: "0.1em" }}
+              animate={artistsVisible ? { opacity: 1, letterSpacing: "0.3em" } : {}}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="font-body text-secondary tracking-[0.3em] uppercase text-sm mb-4"
+            >
+              The People Behind Shadow Arts
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={artistsVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-5xl md:text-6xl font-bold text-primary-foreground"
+            >
+              Team Shadow<span className="text-secondary">Arts</span>
+            </motion.h2>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={artistsVisible ? { scaleX: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="w-24 h-0.5 bg-gradient-to-r from-transparent via-secondary to-transparent mx-auto mt-6"
+            />
           </motion.div>
 
-          {/* Leadership row — founder + co-founder larger */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate={artistsVisible ? "show" : "hidden"}
-            className="flex flex-col items-center gap-12"
-          >
-            {/* Top tier: 2 leaders */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl w-full">
-              {teamMembers.slice(0, 2).map((a) => (
-                <motion.div
-                  key={a.name}
-                  variants={staggerItem}
-                  className="group relative bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-500"
-                >
-                  <div className="relative h-64 overflow-hidden">
-                    <img
-                      src={a.image}
-                      alt={a.name}
-                      style={a.objectPosition ? { objectPosition: a.objectPosition } : undefined}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <h3 className="font-display text-xl font-bold text-primary-foreground">{a.name}</h3>
-                      <p className="font-body text-sm text-secondary mt-1">{a.role}</p>
+          {/* Leadership — Hero cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16">
+            {teamMembers.slice(0, 2).map((a, i) => (
+              <motion.div
+                key={a.name}
+                initial={{ opacity: 0, y: 60, rotateX: 15 }}
+                animate={artistsVisible ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                transition={{ duration: 0.9, delay: 0.4 + i * 0.2, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -8, transition: { duration: 0.4 } }}
+                className="group relative rounded-3xl overflow-hidden cursor-default"
+              >
+                <div className="relative h-80 md:h-96">
+                  <img
+                    src={a.image}
+                    alt={a.name}
+                    style={a.objectPosition ? { objectPosition: a.objectPosition } : undefined}
+                    className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-110"
+                  />
+                  {/* Cinematic gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+                  {/* Decorative corner lines */}
+                  <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-secondary/50 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:w-12 group-hover:h-12" />
+                  <div className="absolute bottom-20 right-4 w-8 h-8 border-b-2 border-r-2 border-secondary/50 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:w-12 group-hover:h-12" />
+
+                  {/* Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                    <motion.div
+                      initial={false}
+                      className="transform transition-transform duration-500 group-hover:-translate-y-2"
+                    >
+                      <span className="inline-block px-3 py-1 rounded-full bg-secondary/20 backdrop-blur-sm text-secondary text-xs font-body tracking-wider uppercase mb-3 border border-secondary/30">
+                        {a.role}
+                      </span>
+                      <h3 className="font-display text-2xl md:text-3xl font-bold text-white leading-tight">{a.name}</h3>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Core team — Staggered cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 max-w-4xl mx-auto">
+            {teamMembers.slice(2).map((a, i) => (
+              <motion.div
+                key={a.name}
+                initial={{ opacity: 0, y: 50 }}
+                animate={artistsVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.8 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -6, transition: { duration: 0.3 } }}
+                className="group relative rounded-2xl overflow-hidden cursor-default"
+              >
+                <div className="relative h-56 md:h-64">
+                  <img
+                    src={a.image}
+                    alt={a.name}
+                    style={a.objectPosition ? { objectPosition: a.objectPosition } : undefined}
+                    className="w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                  
+                  {/* Glow effect on hover */}
+                  <div className="absolute inset-0 shadow-[inset_0_0_30px_rgba(var(--secondary-rgb,200,170,100),0.15)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <div className="transform transition-transform duration-400 group-hover:-translate-y-1">
+                      <h3 className="font-display text-sm md:text-base font-bold text-white leading-tight">{a.name}</h3>
+                      <p className="font-body text-[11px] md:text-xs text-secondary/80 mt-1 tracking-wide uppercase">{a.role}</p>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Bottom tier: remaining 4 members */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-4xl w-full">
-              {teamMembers.slice(2).map((a) => (
-                <motion.div
-                  key={a.name}
-                  variants={staggerItem}
-                  className="group text-center"
-                >
-                  <div className="relative w-28 h-28 mx-auto mb-4">
-                    <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-secondary/60 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-                    <img
-                      src={a.image}
-                      alt={a.name}
-                      style={a.objectPosition ? { objectPosition: a.objectPosition } : undefined}
-                      className="relative w-full h-full rounded-full object-cover border-3 border-secondary/30 group-hover:border-secondary transition-all duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  <h3 className="font-display text-base font-semibold text-foreground mb-0.5">{a.name}</h3>
-                  <p className="font-body text-xs text-muted-foreground">{a.role}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
