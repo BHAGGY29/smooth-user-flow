@@ -108,15 +108,15 @@ export default function Shop() {
                       </motion.div>
                     </div>
 
-                    {/* Floating price badge */}
+                    {/* Coming Soon badge */}
                     <div className="absolute top-4 right-4">
                       <motion.span
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ delay: i * 0.1 + 0.3, type: "spring" }}
-                        className="inline-flex items-center gap-0.5 px-3 py-1.5 rounded-full bg-secondary/90 text-secondary-foreground font-display text-sm font-bold backdrop-blur-sm shadow-md"
+                        className="inline-flex items-center px-3 py-1.5 rounded-full bg-secondary/90 text-secondary-foreground font-display text-xs font-bold backdrop-blur-sm shadow-md tracking-wide"
                       >
-                        <IndianRupee className="h-3.5 w-3.5" />{p.price}
+                        Coming Soon
                       </motion.span>
                     </div>
                   </div>
@@ -182,19 +182,15 @@ export default function Shop() {
                 <p className="font-body text-white/70 mb-6 leading-relaxed max-w-md">
                   {products[selectedProduct].description}
                 </p>
-                <div className="flex items-center gap-1 font-display text-3xl text-secondary font-bold mb-6 justify-center md:justify-start">
-                  <IndianRupee className="h-6 w-6" />
-                  {products[selectedProduct].price}
+                <div className="font-display text-2xl text-secondary font-bold mb-6 justify-center md:justify-start">
+                  Coming Soon
                 </div>
                 <Button
                   size="lg"
-                  onClick={(e) => {
-                    handleAdd(e, products[selectedProduct]);
-                    setSelectedProduct(null);
-                  }}
-                  className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body gap-2 text-lg px-8"
+                  disabled
+                  className="bg-secondary/50 text-secondary-foreground font-body gap-2 text-lg px-8 cursor-not-allowed"
                 >
-                  <ShoppingCart className="h-5 w-5" /> Add to Cart
+                  <ShoppingCart className="h-5 w-5" /> Coming Soon
                 </Button>
               </motion.div>
             </div>
