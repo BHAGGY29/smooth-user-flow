@@ -9,7 +9,7 @@ export default function HeroSection() {
     <section className="relative min-h-[90vh] flex items-center bg-primary overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0">
-        <img src={heroHomeBg} alt="" className="w-full h-full object-contain opacity-40" />
+        <img src={heroHomeBg} alt="" className="w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-primary/60" />
       </div>
 
