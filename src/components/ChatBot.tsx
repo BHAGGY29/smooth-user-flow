@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Bot, User } from "lucide-react";
+import { X, Send, User, Palette, Brush } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -125,7 +125,7 @@ export default function ChatBot() {
             className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-secondary text-secondary-foreground shadow-lg hover:bg-secondary/90 flex items-center justify-center transition-colors"
             aria-label="Open chat"
           >
-            <MessageCircle className="h-6 w-6" />
+            <Palette className="h-6 w-6" />
           </motion.button>
         )}
       </AnimatePresence>
@@ -142,7 +142,7 @@ export default function ChatBot() {
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 bg-primary text-primary-foreground border-b border-border">
               <div className="flex items-center gap-2">
-                <Bot className="h-5 w-5 text-secondary" />
+                <Brush className="h-5 w-5 text-secondary" />
                 <span className="font-display font-semibold text-sm">Shadow Arts Assistant</span>
               </div>
               <button onClick={() => setOpen(false)} className="hover:text-secondary transition-colors" aria-label="Close chat">
@@ -156,7 +156,7 @@ export default function ChatBot() {
                 <div key={i} className={`flex gap-2 ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                   {m.role === "assistant" && (
                     <div className="h-7 w-7 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Bot className="h-4 w-4 text-secondary" />
+                      <Brush className="h-4 w-4 text-secondary" />
                     </div>
                   )}
                   <div className={`max-w-[75%] rounded-lg px-3 py-2 text-sm font-body leading-relaxed whitespace-pre-wrap ${
@@ -176,7 +176,7 @@ export default function ChatBot() {
               {loading && !messages[messages.length - 1]?.content && (
                 <div className="flex gap-2">
                   <div className="h-7 w-7 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0">
-                    <Bot className="h-4 w-4 text-secondary" />
+                    <Brush className="h-4 w-4 text-secondary" />
                   </div>
                   <div className="bg-muted rounded-lg px-3 py-2 text-sm text-muted-foreground">Thinking...</div>
                 </div>
