@@ -105,21 +105,13 @@ export default function About() {
               <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-8">Our Story</h2>
               <div className="space-y-5">
                 <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                  Founded in 2023, Shadow Arts started as a small exhibition space but
-                  quickly grew into an online community where artists and enthusiasts
-                  could connect and appreciate the beauty of shadows in art.
+                  Founded in 2023, Shadow Arts began as a small creative initiative inspired by a simple belief — that art has the power to heal, inspire, and bring people together.
                 </p>
                 <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                  What began as an intimate gallery celebrating the interplay of light
-                  and darkness has evolved into a comprehensive platform — offering
-                  immersive workshops, handcrafted artwork from master artisans, and
-                  curated programs that preserve and celebrate India's rich cultural
-                  heritage through traditional art forms.
+                  What started as intimate exhibitions and artistic gatherings soon grew into a vibrant platform where artists, students, and art enthusiasts could connect through meaningful creative experiences. Over time, Shadow Arts expanded beyond exhibitions to host immersive workshops, collaborative programs, and curated artistic experiences that celebrate both traditional and contemporary art forms.
                 </p>
                 <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                  Today, Shadow Arts bridges the gap between ancient artistic traditions
-                  and contemporary expression, making these timeless art forms accessible
-                  to a new generation of creators and collectors.
+                  At its heart, Shadow Arts is driven by a mission to preserve and promote India's rich artistic heritage while making art more accessible to communities. By working with skilled artisans, educators, and creative practitioners, the platform creates opportunities for people of all ages to explore creativity, learn traditional techniques, and rediscover the joy of making art with their own hands.
                 </p>
               </div>
             </motion.div>
