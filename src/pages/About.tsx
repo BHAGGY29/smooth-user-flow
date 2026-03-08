@@ -31,8 +31,8 @@ const teamMembers = [
   { name: "Chandhana", role: "Chief Creative Officer & Managing Director", image: teamChandhana },
   { name: "Varshitha", role: "Creative Head", image: teamVarshitha },
   { name: "Sushmitha", role: "Workshop Community Head", image: teamSushmitha },
-  { name: "Sangem Aravind Reddy", role: "Technical Head", image: teamAravind },
-  { name: "Bhagath Vallala", role: "R&D Engineer", image: teamBhagath },
+  { name: "Sangem Aravind Reddy", role: "Technical Head", image: teamAravind, objectPosition: "top" },
+  { name: "Bhagath Vallala", role: "R&D Engineer", image: teamBhagath, objectPosition: "top" },
 ];
 
 const mouPartners = [
