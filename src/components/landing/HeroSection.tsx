@@ -64,7 +64,7 @@ export default function HeroSection() {
               </Button>
             </Link>
             <Link to="/shop">
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-body text-base px-8">
+              <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground font-body text-base px-8">
                 Shop Art
               </Button>
             </Link>
