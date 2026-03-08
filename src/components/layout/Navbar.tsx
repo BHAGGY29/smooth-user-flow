@@ -12,7 +12,7 @@ const links = [
   { to: "/programs", label: "Programs" },
   { to: "/workshops", label: "Workshops" },
   { to: "/shop", label: "Shop" },
-  { to: "/about", label: "About" },
+  { to: "/about", label: "About Us" },
   { to: "/contact", label: "Contact" },
 ];
 
