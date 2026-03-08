@@ -78,7 +78,7 @@ export default function Navbar() {
             </>
           ) : (
             <Link to="/login">
-              <Button variant="outline" size="sm" className="border-secondary/40 text-primary-foreground hover:bg-secondary hover:text-secondary-foreground">
+              <Button variant="outline" size="sm" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground">
                 Login
               </Button>
             </Link>
