@@ -303,8 +303,8 @@ export default function About() {
               <h3 className="font-display text-lg font-semibold text-primary-foreground mb-4">Follow Us</h3>
               <div className="flex flex-col gap-3">
                 {[
-                  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/_shadowarts_official" },
-                  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@shadowarts_official" },
+                  { icon: Instagram, label: "Instagram", href: "https://tr.ee/Sv7tkMKR0u" },
+                  { icon: Youtube, label: "YouTube", href: "https://tr.ee/dTTgvU55Mi" },
                   { icon: MessageCircle, label: "WhatsApp", href: "https://tr.ee/hqzGJrHP4K" },
                 ].map((social, i) => (
                   <motion.a
