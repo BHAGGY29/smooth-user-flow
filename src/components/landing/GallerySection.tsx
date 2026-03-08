@@ -3,20 +3,26 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { X, ZoomIn } from "lucide-react";
 
-import warliImg from "@/assets/art-warli.jpg";
-import madhubaniImg from "@/assets/art-madhubani.jpg";
-import kalamkariImg from "@/assets/art-kalamkari.jpg";
-import mandalaImg from "@/assets/art-mandala.jpg";
-import pichwaiImg from "@/assets/art-pichwai.jpg";
-import gondImg from "@/assets/art-gond.jpg";
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery2 from "@/assets/gallery-2.jpg";
+import gallery3 from "@/assets/gallery-3.jpg";
+import gallery4 from "@/assets/gallery-4.jpg";
+import gallery5 from "@/assets/gallery-5.jpg";
+import gallery6 from "@/assets/gallery-6.jpg";
+import gallery7 from "@/assets/gallery-7.jpg";
+import gallery8 from "@/assets/gallery-8.jpg";
+import gallery9 from "@/assets/gallery-9.jpg";
 
 const images = [
-  { url: warliImg, title: "Warli Art", category: "Tribal" },
-  { url: madhubaniImg, title: "Madhubani", category: "Folk" },
-  { url: mandalaImg, title: "Mandala", category: "Meditative" },
-  { url: kalamkariImg, title: "Kalamkari", category: "Textile" },
-  { url: pichwaiImg, title: "Pichwai", category: "Devotional" },
-  { url: gondImg, title: "Gond Art", category: "Indigenous" },
+  { url: gallery1, title: "Cultural Performance", category: "Events" },
+  { url: gallery2, title: "Art Exhibition", category: "Workshop" },
+  { url: gallery3, title: "Student Showcase", category: "Summer Camp" },
+  { url: gallery4, title: "School Outreach", category: "Community" },
+  { url: gallery5, title: "Group Workshop", category: "Summer Camp" },
+  { url: gallery6, title: "College Workshop", category: "Education" },
+  { url: gallery7, title: "Mandala Workshop", category: "Professional" },
+  { url: gallery8, title: "DIY Art Kit", category: "Products" },
+  { url: gallery9, title: "Young Artist", category: "Summer Camp" },
 ];
 
 const containerVariants = {
