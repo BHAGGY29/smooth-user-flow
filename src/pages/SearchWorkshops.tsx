@@ -3,8 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { motion } from "framer-motion";
-import { MapPin, Calendar, Users, IndianRupee, Search } from "lucide-react";
+import { Calendar, Search } from "lucide-react";
+import WorkshopCard from "@/components/WorkshopCard";
 import {
   Select,
   SelectContent,
@@ -183,29 +183,7 @@ export default function SearchWorkshops() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {workshops.map((w, i) => (
-                <motion.div
-                  key={w.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  className="rounded-lg border border-border bg-card p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                >
-                  <h3 className="font-display text-xl font-semibold text-foreground mb-3">{w.title}</h3>
-                  <p className="font-body text-sm text-muted-foreground mb-4 leading-relaxed">{w.description}</p>
-                  <div className="space-y-2 font-body text-sm text-muted-foreground mb-6">
-                    <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-secondary" /> {w.city} — {w.venue}</div>
-                    <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-secondary" /> {new Date(w.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</div>
-                    <div className="flex items-center gap-2"><Users className="h-4 w-4 text-secondary" /> {w.seats_available} seats left</div>
-                    <div className="flex items-center gap-2"><IndianRupee className="h-4 w-4 text-secondary" /> ₹{w.price}</div>
-                  </div>
-                  <Button
-                    onClick={() => handleBook(w)}
-                    disabled={w.seats_available <= 0}
-                    className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body"
-                  >
-                    {w.seats_available <= 0 ? "Fully Booked" : "Book Now"}
-                  </Button>
-                </motion.div>
+                <WorkshopCard key={w.id} workshop={w} index={i} onBook={handleBook} />
               ))}
             </div>
           )}
