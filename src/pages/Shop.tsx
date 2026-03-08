@@ -7,12 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingCart, IndianRupee, X, ZoomIn } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 
-import warliImg from "@/assets/art-warli.jpg";
-import madhubaniImg from "@/assets/art-madhubani.jpg";
-import pichwaiImg from "@/assets/art-pichwai.jpg";
-import gondImg from "@/assets/art-gond.jpg";
-import kalamkariImg from "@/assets/art-kalamkari.jpg";
-import mandalaImg from "@/assets/art-mandala.jpg";
+import warliImg from "@/assets/shop-warli-painting.jpg";
+import madhubaniImg from "@/assets/shop-madhubani-canvas.jpg";
+import pichwaiImg from "@/assets/shop-pichwai-art.jpg";
+import gondImg from "@/assets/shop-gond-art.jpg";
+import kalamkariImg from "@/assets/shop-kalamkari-textile.jpg";
+import mandalaImg from "@/assets/shop-mandala-print.jpg";
 
 const fallbackImages = [warliImg, madhubaniImg, pichwaiImg, gondImg, kalamkariImg, mandalaImg];
 
