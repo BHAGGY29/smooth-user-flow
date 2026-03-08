@@ -7,14 +7,14 @@ import { motion } from "framer-motion";
 import { ShoppingCart, IndianRupee } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 
-import shopWarli from "@/assets/shop-warli-painting.jpg";
-import shopMadhubani from "@/assets/shop-madhubani-canvas.jpg";
-import shopPichwai from "@/assets/shop-pichwai-art.jpg";
-import shopGond from "@/assets/shop-gond-art.jpg";
-import shopKalamkari from "@/assets/shop-kalamkari-textile.jpg";
-import shopMandala from "@/assets/shop-mandala-print.jpg";
+import warliImg from "@/assets/art-warli.jpg";
+import madhubaniImg from "@/assets/art-madhubani.jpg";
+import pichwaiImg from "@/assets/art-pichwai.jpg";
+import gondImg from "@/assets/art-gond.jpg";
+import kalamkariImg from "@/assets/art-kalamkari.jpg";
+import mandalaImg from "@/assets/art-mandala.jpg";
 
-const fallbackImages = [shopWarli, shopMadhubani, shopPichwai, shopGond, shopKalamkari, shopMandala];
+const fallbackImages = [warliImg, madhubaniImg, pichwaiImg, gondImg, kalamkariImg, mandalaImg];
 
 function getProductImage(product: any, index: number): string {
   if (product.image_url) return product.image_url;
@@ -55,29 +55,57 @@ export default function Shop() {
           ) : products.length === 0 ? (
             <p className="text-center font-body text-muted-foreground">No products available yet. Check back soon!</p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {products.map((p, i) => (
                 <motion.div
                   key={p.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  className="group rounded-lg border border-border bg-card overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  initial={{ opacity: 0, y: 40, rotateX: 10 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{ delay: i * 0.1, duration: 0.6, ease: "easeOut" }}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                  className="group relative rounded-2xl overflow-hidden border border-border bg-card shadow-lg hover:shadow-2xl transition-shadow duration-500"
+                  style={{ perspective: 1000 }}
                 >
-                  <div className="aspect-square overflow-hidden bg-muted">
-                    <img src={getProductImage(p, i)} alt={p.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-display text-lg font-semibold text-foreground mb-1">{p.name}</h3>
-                    <p className="font-body text-sm text-muted-foreground mb-3 line-clamp-2">{p.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="font-display text-xl font-bold text-foreground flex items-center">
-                        <IndianRupee className="h-4 w-4" />{p.price}
-                      </span>
-                      <Button size="sm" onClick={() => handleAdd(p)} className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body">
-                        <ShoppingCart className="h-4 w-4 mr-1" /> Add
-                      </Button>
+                  {/* Image */}
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <motion.img
+                      src={getProductImage(p, i)}
+                      alt={p.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                      whileHover={{ scale: 1.12 }}
+                      transition={{ duration: 0.7 }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                    
+                    {/* Floating price badge */}
+                    <div className="absolute top-4 right-4">
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: i * 0.1 + 0.3, type: "spring" }}
+                        className="inline-flex items-center gap-0.5 px-3 py-1.5 rounded-full bg-secondary/90 text-secondary-foreground font-display text-sm font-bold backdrop-blur-sm shadow-md"
+                      >
+                        <IndianRupee className="h-3.5 w-3.5" />{p.price}
+                      </motion.span>
                     </div>
+                  </div>
+
+                  {/* Content overlay at bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 transform group-hover:-translate-y-1 transition-transform duration-500">
+                    <h3 className="font-display text-xl font-bold text-foreground mb-1 group-hover:text-secondary transition-colors duration-300">
+                      {p.name}
+                    </h3>
+                    <p className="font-body text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">
+                      {p.description}
+                    </p>
+                    <Button
+                      size="sm"
+                      onClick={() => handleAdd(p)}
+                      className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body gap-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-400"
+                    >
+                      <ShoppingCart className="h-4 w-4" /> Add to Cart
+                    </Button>
                   </div>
                 </motion.div>
               ))}
